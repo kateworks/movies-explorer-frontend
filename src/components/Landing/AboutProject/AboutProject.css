@@ -1,0 +1,137 @@
+.AboutProject {
+  box-sizing: border-box;
+  padding: 110px 70px;
+  margin: 0;
+}
+
+.brief {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  column-gap: 40px;
+  padding: 0;
+  padding-top: 70px;
+  margin: 0;
+}
+
+.brief__title {
+  color: #000;
+  font-size: 20px;
+  font-weight: normal;
+  line-height: 24px;
+  letter-spacing: -0.04em;
+
+  padding: 0;
+  margin: 0;
+}
+
+.brief__text {
+  color: #000;
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 20px;
+
+  padding: 0;
+  padding-top: 26px;
+  margin: 0;
+}
+
+.schedule {
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+  grid-template-rows: 36px 31px;
+  justify-items: stretch;
+
+  padding: 0;
+  padding-top: 110px;
+  margin: 0;
+}
+
+.schedule__text {
+  font-size: 14px;
+  font-weight: normal;
+  text-align: center;
+  padding: 0;
+  margin: 0;
+}
+
+.schedule__chart {
+  color: #000;
+  line-height: 36px;
+}
+
+.schedule__chart_green {
+  background-color: #2be080;
+}
+
+.schedule__chart_gray {
+  background-color: #f2f2f2;
+}
+
+.schedule__item {
+  color: #a0a0a0;
+  line-height: 17px;
+  align-self: end;
+}
+
+@media screen and (max-width: 770px) {
+  .AboutProject {
+    padding: 90px 50px;
+  }
+
+  .brief {
+    column-gap: 30px;
+  }
+
+  .brief__text {
+    font-size: 12px;
+    line-height: 18px;
+    padding-top: 22px;
+  }
+
+  .schedule {
+    grid-template-columns: minmax(100px, 140px) minmax(184px, 528px);
+    padding-top: 93px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .brief {
+    column-gap: 0px;
+    row-gap: 56px;
+    padding-top: 60px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .AboutProject {
+    padding: 70px 18px;
+  }
+
+  .brief__title {
+    font-size: 18px;
+    line-height: 22px;
+  }
+
+  .brief__text {
+    font-size: 11px;
+    line-height: 16px;
+    padding-top: 16px;
+  }
+
+  .schedule {
+    grid-template-rows: 35px 23px;
+    padding-top: 60px;
+  }
+
+  .schedule__chart {
+    line-height: 35px;
+  }
+
+  .schedule__item {
+    line-height: 13px;
+  }
+
+  .schedule__text {
+    font-size: 11px;
+  }
+}
