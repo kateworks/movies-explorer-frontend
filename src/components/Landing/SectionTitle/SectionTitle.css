@@ -1,0 +1,18 @@
+.SectionTitle {
+  color: #000000;
+  font-size: 50px;
+  font-weight: normal;
+  line-height: 58px;
+  letter-spacing: -0.04em;
+
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+@media screen and (max-width: 430px) {
+  .SectionTitle {
+    font-size: 30px;
+    line-height: 36px;
+  }
+}

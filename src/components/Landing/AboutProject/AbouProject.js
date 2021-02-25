@@ -8,8 +8,8 @@ const AboutProject = () => (
 
     <SectionHeader>О проекте</SectionHeader>
 
-    <div className="brief gradual-change">
-      <div className="brief__column">
+    <ul className="brief gradual-change">
+      <li className="brief__column">
         <h4 className="brief__title">
           Дипломный проект включал 5 этапов
         </h4>
@@ -17,8 +17,8 @@ const AboutProject = () => (
           Составление плана, работу над бэкендом, вёрстку,
           добавление функциональности и финальные доработки.
         </p>
-      </div>
-      <div className="brief__column">
+      </li>
+      <li className="brief__column">
         <h4 className="brief__title">
           На выполнение диплома ушло 5 недель
         </h4>
@@ -26,8 +26,8 @@ const AboutProject = () => (
           У каждого этапа был мягкий и жёсткий дедлайн, которые нужно было соблюдать,
           чтобы успешно защититься.
         </p>
-      </div>
-    </div>
+      </li>
+    </ul>
 
     <div className="schedule gradual-change">
       <p className="schedule__text schedule__chart schedule__chart_green">
