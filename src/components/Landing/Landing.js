@@ -3,6 +3,7 @@ import Promo from './Promo/Promo';
 import AboutProject from './AboutProject/AbouProject';
 import Techs from './Techs/Techs';
 import AboutMe from './AboutMe/AboutMe';
+import Footer from './../Footer/Footer';
 
 import './Landing.css';
 
@@ -12,6 +13,7 @@ const Landing = () => (
     <AboutProject/>
     <Techs/>
     <AboutMe/>
+    <Footer/>
   </div>
 );
 

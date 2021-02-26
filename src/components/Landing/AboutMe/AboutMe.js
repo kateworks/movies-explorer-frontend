@@ -1,6 +1,7 @@
 import React from 'react';
 import SectionHeader from '../SectionHeader/SectionHeader';
 import SectionTitle from '../SectionTitle/SectionTitle';
+import Portfolio from '../Portfolio/Portfolio';
 
 import personPhoto from '../../../images/person-photo.jpg';
 import './AboutMe.css';
@@ -47,6 +48,7 @@ const AboutMe = () => (
       />
     </article>
 
+    <Portfolio />
   </section>
 );
 
