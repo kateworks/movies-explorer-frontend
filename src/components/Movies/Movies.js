@@ -1,25 +1,30 @@
 import React, { useState } from 'react';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
-import MoviesCardList from './MoviesCardList/MoviesCardList';
+import MoviesCardList from '../MoviesCardList/MoviesCardList';
+import Button from '../Button/Button';
 
 import { initialMovies } from '../../utils/movies-init';
 import './Movies.css';
 
-const Movies = () => {
+function Movies() {
   const [moviesList, setMoviesList] = useState(initialMovies);
   const [isLoading, setIsLoading] = useState(false);
 
   return (
     <React.Fragment>
-      <Header/>
-      <section className="Movies">
+      <Header />
+
+      <section className="movies">
         <MoviesCardList
           moviesList={moviesList}
           isLoading={isLoading}
         />
+
+        <Button userClass="movies__btn_action_more">Ещё</Button>
       </section>
-      <Footer/>
+
+      <Footer />
     </React.Fragment>
   );
 }

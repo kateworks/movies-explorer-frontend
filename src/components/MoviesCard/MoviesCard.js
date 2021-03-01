@@ -1,5 +1,5 @@
 import React from 'react';
-import ShortFilmSign from '../../ShortFilmSign/ShortFilmSign';
+import ShortFilmSign from '../ShortFilmSign/ShortFilmSign';
 import './MoviesCard.css';
 
 const MoviesCard = ({ movie }) => (

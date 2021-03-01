@@ -12,17 +12,25 @@ import filmImage11 from '../images/films/film11.jpg';
 import filmImage12 from '../images/films/film12.jpg';
 
 export const initialMovies = [
-  { nameRU: '33 слова о дизайне', duration: 11, short: true, thumbnail: filmImage01, movieId: 1 },
-  { nameRU: '33 слова о дизайне', duration: 11, short: false, thumbnail: filmImage02, movieId: 2 },
-  { nameRU: '33 слова о дизайне', duration: 11, short: false, thumbnail: filmImage03, movieId: 3 },
-  { nameRU: '33 слова о дизайне', duration: 11, short: false, thumbnail: filmImage04, movieId: 4 },
-  { nameRU: '33 слова о дизайне', duration: 11, short: false, thumbnail: filmImage05, movieId: 5 },
-  { nameRU: '33 слова о дизайне', duration: 11, short: false, thumbnail: filmImage06, movieId: 6 },
-  { nameRU: '33 слова о дизайне', duration: 11, short: false, thumbnail: filmImage07, movieId: 7 },
-  { nameRU: '33 слова о дизайне', duration: 11, short: false, thumbnail: filmImage08, movieId: 8 },
-  { nameRU: '33 слова о дизайне', duration: 11, short: false, thumbnail: filmImage09, movieId: 9 },
-  { nameRU: '33 слова о дизайне', duration: 11, short: false, thumbnail: filmImage10, movieId: 10 },
-  { nameRU: '33 слова о дизайне', duration: 11, short: false, thumbnail: filmImage11, movieId: 11 },
-  { nameRU: '33 слова о дизайне', duration: 11, short: false, thumbnail: filmImage12, movieId: 12 },
+  { nameRU: '33 слова о дизайне', duration: '1ч42м', short: true, thumbnail: filmImage01, movieId: 1 },
+  { nameRU: '33 слова о дизайне', duration: '1ч42м', short: false, thumbnail: filmImage02, movieId: 2 },
+  { nameRU: '33 слова о дизайне', duration: '1ч42м', short: false, thumbnail: filmImage03, movieId: 3 },
+  { nameRU: '33 слова о дизайне', duration: '1ч42м', short: false, thumbnail: filmImage04, movieId: 4 },
+  { nameRU: '33 слова о дизайне', duration: '1ч42м', short: false, thumbnail: filmImage05, movieId: 5 },
+  { nameRU: '33 слова о дизайне', duration: '1ч42м', short: false, thumbnail: filmImage06, movieId: 6 },
+  { nameRU: '33 слова о дизайне', duration: '1ч42м', short: false, thumbnail: filmImage07, movieId: 7 },
+  { nameRU: '33 слова о дизайне', duration: '1ч42м', short: false, thumbnail: filmImage08, movieId: 8 },
+  { nameRU: '33 слова о дизайне', duration: '1ч42м', short: false, thumbnail: filmImage09, movieId: 9 },
+  { nameRU: '33 слова о дизайне', duration: '1ч42м', short: false, thumbnail: filmImage10, movieId: 10 },
+  { nameRU: '33 слова о дизайне', duration: '1ч42м', short: false, thumbnail: filmImage11, movieId: 11 },
+  { nameRU: '33 слова о дизайне', duration: '1ч42м', short: false, thumbnail: filmImage12, movieId: 12 },
+];
+
+export const savdMovies = [
+  { nameRU: '33 слова о дизайне', duration: '1ч42м', short: true, thumbnail: filmImage01, movieId: 1 },
+  { nameRU: '33 слова о дизайне', duration: '1ч42м', short: false, thumbnail: filmImage02, movieId: 2 },
+  { nameRU: '33 слова о дизайне', duration: '1ч42м', short: false, thumbnail: filmImage03, movieId: 3 },
+  { nameRU: '33 слова о дизайне', duration: '1ч42м', short: false, thumbnail: filmImage04, movieId: 4 },
+  { nameRU: '33 слова о дизайне', duration: '1ч42м', short: false, thumbnail: filmImage05, movieId: 5 },
 ];
 

@@ -16,6 +16,7 @@
   width: 100%;
   object-fit: contain;
   object-position: center;
+  background-color: inherit;
   border-radius: 10px 10px 0 0;
 
   padding: 0;
