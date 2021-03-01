@@ -1,8 +1,7 @@
 import React from 'react';
-import ShortFilmSign from '../ShortFilmSign/ShortFilmSign';
 import './MoviesCard.css';
 
-const MoviesCard = ({ movie }) => (
+const MoviesCard = ({ movie, children }) => (
   <li className="card gradual-change">
       <img
         className="card__image"
@@ -12,7 +11,7 @@ const MoviesCard = ({ movie }) => (
 
       <ul className="card__info">
         <li className="card__name">{movie.nameRU}</li>
-        <ShortFilmSign isShort={movie.short}/>
+        <li>{children}</li>
         <li className="card__duration">{movie.duration}</li>
       </ul>
   </li>
