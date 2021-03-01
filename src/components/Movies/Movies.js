@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
+import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Button from '../Button/Button';
 
@@ -16,6 +17,8 @@ function Movies() {
       <Header />
 
       <section className="movies">
+        <SearchForm/>
+
         <MoviesCardList
           moviesList={moviesList}
           isLoading={isLoading}
