@@ -1,4 +1,5 @@
 import React from 'react';
+import Button from '../Button/Button';
 import RoundSwitch from '../RoundSwitch/RoundSwitch';
 import './SearchForm.css';
 
@@ -10,7 +11,15 @@ const SearchForm = (props) => (
       onSubmit={props.onSubmit}
     >
       <fieldset className="search__input-box search__box">
-        <input type="text"/>
+        <input
+          type="text"
+          id="search-input"
+          name="search-input"
+          className="search__input search__box"
+          placeholder="Фильм"
+        />
+
+        <Button userClass="search__button"/>
       </fieldset>
 
       <fieldset className="search__switch-box search__box">

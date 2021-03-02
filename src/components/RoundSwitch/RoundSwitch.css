@@ -5,6 +5,10 @@
   height: 20px;
 }
 
+.switch:hover {
+  opacity: .7;
+}
+
 .switch__input {
   opacity: 0;
   width: 0;

@@ -6,7 +6,7 @@ const Button = ({ userClass, buttonType, children }) => (
     className={`button gradual-change ${userClass || ''}`}
     type={buttonType || 'button'}
   >
-    { children }
+    { children || '' }
   </button>
 );
 

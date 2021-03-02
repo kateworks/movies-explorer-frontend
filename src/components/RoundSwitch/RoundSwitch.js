@@ -9,7 +9,7 @@ const RoundSwitch = (props) => {
   };
 
   return (
-    <label className="switch">
+    <label className="switch gradual-change">
       <input
         type="checkbox"
         className="switch__input"
