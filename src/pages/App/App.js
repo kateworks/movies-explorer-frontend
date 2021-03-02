@@ -1,11 +1,13 @@
 import './App.css';
 //import Landing from '../Landing/Landing';
-import Movies from '../Movies/Movies';
+//import Movies from '../Movies/Movies';
+import NotFound from '../NotFound/NotFound';
 
 function App() {
   return (
     <div className="App">
-      <Movies/>
+      {/* <Movies/> */}
+      <NotFound />
     </div>
   );
 }

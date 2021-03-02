@@ -11,13 +11,13 @@ const SearchForm = (props) => (
     >
       <fieldset className="search__input-box search__box">
         <input type="text"/>
-
       </fieldset>
 
-      <div className="search__line search__box" />
-
       <fieldset className="search__switch-box search__box">
+        <div className="search__line search__box" />
+
         <RoundSwitch isChecked={true}/>
+
         <p className="search__switch-name search__box">
           Короткометражки
         </p>
