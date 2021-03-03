@@ -1,8 +1,9 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './Logo.css';
 
 const Logo = () => (
-  <div className="Logo" />
+  <Link to="/" className="logo gradual-change"/>
 );
 
 export default Logo;

@@ -1,6 +1,4 @@
 import React, { useState } from 'react';
-import Header from '../Header/Header';
-import Footer from '../Footer/Footer';
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Button from '../Button/Button';
@@ -13,22 +11,16 @@ function Movies() {
   const [isLoading, setIsLoading] = useState(false);
 
   return (
-    <React.Fragment>
-      <Header />
+    <section className="movies">
+      <SearchForm/>
 
-      <section className="movies">
-        <SearchForm/>
+      <MoviesCardList
+        moviesList={moviesList}
+        isLoading={isLoading}
+      />
 
-        <MoviesCardList
-          moviesList={moviesList}
-          isLoading={isLoading}
-        />
-
-        <Button userClass="movies__btn_action_more">Ещё</Button>
-      </section>
-
-      <Footer />
-    </React.Fragment>
+      <Button userClass="movies__btn_action_more">Ещё</Button>
+    </section>
   );
 }
 

@@ -1,11 +1,12 @@
 import React from 'react';
 import Header from '../../Header/Header';
+import NavTab from '../NavTab/NavTab';
 import './Promo.css';
 
 const Promo = () => (
-  <section className="Promo promo__block">
+  <section className="promo promo__block">
     <Header>
-      Здесь будут кнопки
+      <NavTab/>
     </Header>
 
     <div className="promo__block promo__container">

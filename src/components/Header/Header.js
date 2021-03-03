@@ -6,10 +6,7 @@ const Header = (props) => (
 
   <header className="Header">
     <Logo/>
-
-    <nav>
-      {props.children}
-    </nav>
+    {props.children}
   </header>
 
 );
