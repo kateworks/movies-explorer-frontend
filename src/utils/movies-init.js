@@ -26,11 +26,9 @@ export const initialMovies = [
   { nameRU: '33 слова о дизайне', duration: '1ч42м', saved: false, thumbnail: filmImage12, movieId: 12 },
 ];
 
-export const savdMovies = [
+export const savedMovies = [
   { nameRU: '33 слова о дизайне', duration: '1ч42м', saved: true, thumbnail: filmImage01, movieId: 1 },
   { nameRU: '33 слова о дизайне', duration: '1ч42м', saved: false, thumbnail: filmImage02, movieId: 2 },
   { nameRU: '33 слова о дизайне', duration: '1ч42м', saved: false, thumbnail: filmImage03, movieId: 3 },
-  { nameRU: '33 слова о дизайне', duration: '1ч42м', saved: false, thumbnail: filmImage04, movieId: 4 },
-  { nameRU: '33 слова о дизайне', duration: '1ч42м', saved: false, thumbnail: filmImage05, movieId: 5 },
 ];
 

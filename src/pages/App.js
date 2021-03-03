@@ -3,6 +3,7 @@ import { Switch, Route } from 'react-router-dom';
 
 import HomePage from './HomePage';
 import MoviesPage from './MoviesPage';
+import SavedMoviesPage from './SavedMoviesPage';
 import NotFound from './NotFound/NotFound';
 
 import './App.css';
@@ -21,6 +22,10 @@ function App() {
 
         <Route path="/movies">
           <MoviesPage/>
+        </Route>
+
+        <Route path="/saved-movies">
+          <SavedMoviesPage/>
         </Route>
 
         <Route exact path="/">

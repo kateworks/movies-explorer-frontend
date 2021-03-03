@@ -1,27 +1,24 @@
 import React, { useState } from 'react';
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
-import RoundCheckBox from '../RoundCheckBox/RoundCheckBox';
 import Button from '../Button/Button';
 
-import { initialMovies } from '../../utils/movies-init';
-import './Movies.css';
+import { savedMovies } from '../../utils/movies-init';
+import './SavedMovies.css';
 
-function Movies() {
-  const [moviesList, setMoviesList] = useState(initialMovies);
+function SavedMovies() {
+  const [moviesList, setMoviesList] = useState(savedMovies);
   const [isLoading, setIsLoading] = useState(false);
 
   return (
-    <section className="movies">
+    <section className="saved-movies gradual-change">
       <SearchForm/>
 
       <MoviesCardList moviesList={moviesList} isLoading={isLoading}>
-        <RoundCheckBox isChecked={false} />
+        <Button userClass="saved-movies__btn_delete"/>
       </MoviesCardList>
-
-      <Button userClass="movies__btn_action_more">Ещё</Button>
     </section>
   );
 }
 
-export default Movies;
+export default SavedMovies;

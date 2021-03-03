@@ -1,11 +1,10 @@
 import React from 'react';
 import Preloader from '../Preloader/Preloader';
 import MoviesCard from '../MoviesCard/MoviesCard';
-import RoundCheckBox from '../RoundCheckBox/RoundCheckBox';
 
 import './MoviesCardList.css';
 
-const MoviesCardList = ({ isLoading, moviesList }) => {
+const MoviesCardList = ({ isLoading, moviesList, children }) => {
 
   return (
     <ul className="MoviesCardList gradual-change">
@@ -13,7 +12,7 @@ const MoviesCardList = ({ isLoading, moviesList }) => {
         ? <Preloader/>
         : moviesList.map((moviesCard) => (
             <MoviesCard key={moviesCard.movieId} movie={moviesCard}>
-              <RoundCheckBox isChecked={moviesCard.saved} />
+              {children}
             </MoviesCard>
           ))
       }
