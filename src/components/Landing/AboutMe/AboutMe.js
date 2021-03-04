@@ -29,12 +29,18 @@ const AboutMe = () => (
 
         <ul className="person__list">
           <li className="person__item">
-            <a className="person__link" href="https://www.facebook.com">
+            <a className="person__link"
+              href="https://www.facebook.com"
+              target="_blank" rel="noreferrer noopener"
+            >
               Facebook
             </a>
           </li>
           <li className="person__item">
-            <a className="person__link" href="https://github.com">
+            <a className="person__link"
+              href="https://github.com"
+              target="_blank" rel="noreferrer noopener"
+            >
               Github
             </a>
           </li>

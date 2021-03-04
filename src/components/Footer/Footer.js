@@ -16,6 +16,7 @@ const Footer = () => (
           <li className="footer__row-link">
             <a className="footer__link footer__text"
               href="https://praktikum.yandex.ru"
+              target="_blank" rel="noreferrer noopener"
             >
               Яндекс.Практикум
             </a>
@@ -24,6 +25,7 @@ const Footer = () => (
           <li className="footer__row-link">
             <a className="footer__link footer__text"
               href="https://github.com"
+              target="_blank" rel="noreferrer noopener"
             >
               Github
             </a>
@@ -32,6 +34,7 @@ const Footer = () => (
           <li className="footer__row-link">
             <a className="footer__link footer__text"
               href="https://www.facebook.com"
+              target="_blank" rel="noreferrer noopener"
             >
               Facebook
             </a>
