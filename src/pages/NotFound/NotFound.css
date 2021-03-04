@@ -38,9 +38,21 @@
   margin-top: 5px;
 }
 
-.not-found__link {
+.not-found__button {
+  text-decoration: none;
+  color: #FF6838;
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 17px;
+  text-align: center;
+
   margin-bottom: 60px;
   margin-top: auto;
+}
+
+.not-found__button:hover {
+  cursor: pointer;
+  opacity: .5;
 }
 
 @media screen and (max-width: 770px) {
@@ -61,7 +73,10 @@
     margin-top: 10px;
   }
 
-  .not-found__link {
+  .not-found__button {
+    font-size: 12px;
+    line-height: 15px;
     margin-bottom: 30px;
   }
 }
+

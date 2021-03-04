@@ -1,20 +1,29 @@
 import React from 'react';
-import NavLink from '../../components/NavLink/NavLink';
+import Button from '../../components/Button/Button';
 import './NotFound.css';
 
-const NotFound = () => (
-  <section className="not-found gradual-change">
-    <h1 className="not-found__title not-found__box gradual-change">
-      404
-    </h1>
+function NotFound({ history }) {
 
-    <p className="not-found__subtitle not-found__box gradual-change">
-      Страница не найдена
-    </p>
+  const handleClick = () => {
+    history.goBack();
+  }
 
-    <NavLink destination="\" userClass="not-found__link">Назад</NavLink>
+  return (
+    <section className="not-found gradual-change">
+      <h1 className="not-found__title not-found__box gradual-change">
+        404
+      </h1>
 
-  </section>
-);
+      <p className="not-found__subtitle not-found__box gradual-change">
+        Страница не найдена
+      </p>
+
+      <Button userClass="not-found__button" onClick={handleClick}>
+        Назад
+      </Button>
+
+    </section>
+  );
+}
 
 export default NotFound;

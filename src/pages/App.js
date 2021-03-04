@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, useHistory } from 'react-router-dom';
 
 import HomePage from './HomePage';
 import MoviesPage from './MoviesPage';
@@ -9,6 +9,8 @@ import NotFound from './NotFound/NotFound';
 import './App.css';
 
 function App() {
+  let history = useHistory();
+
   return (
     <div className="App">
       <Switch>
@@ -33,7 +35,7 @@ function App() {
         </Route>
 
         <Route path="*">
-          <NotFound />
+          <NotFound history={history}/>
         </Route>
       </Switch>
     </div>
