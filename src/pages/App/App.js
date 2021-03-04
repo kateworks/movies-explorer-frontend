@@ -1,10 +1,11 @@
 import React from 'react';
 import { Switch, Route, useHistory } from 'react-router-dom';
 
-import HomePage from './HomePage';
-import MoviesPage from './MoviesPage';
-import SavedMoviesPage from './SavedMoviesPage';
-import NotFound from './NotFound/NotFound';
+import HomePage from '../HomePage';
+import Login from '../Login/Login';
+import MoviesPage from '../MoviesPage';
+import SavedMoviesPage from '../SavedMoviesPage';
+import NotFound from '../NotFound/NotFound';
 
 import './App.css';
 
@@ -15,7 +16,7 @@ function App() {
     <div className="App">
       <Switch>
         <Route path="/signin">
-
+          <Login />
         </Route>
 
         <Route path="/signup">

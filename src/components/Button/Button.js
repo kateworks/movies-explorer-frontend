@@ -1,11 +1,11 @@
 import React from 'react';
 import './Button.css';
 
-const Button = ({ userClass, buttonType, onClick, children }) => (
+const Button = ({ userClass, buttonType, children, ...rest }) => (
   <button
     className={`button gradual-change ${userClass || ''}`}
     type={buttonType || 'button'}
-    onClick={onClick}
+    {...rest}
   >
     { children || '' }
   </button>

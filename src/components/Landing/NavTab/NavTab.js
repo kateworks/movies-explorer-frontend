@@ -1,15 +1,22 @@
 import React from 'react';
-import Button from '../../Button/Button';
+import { Link } from 'react-router-dom';
 import './NavTab.css';
 
 const NavTab = () => (
   <nav className="nav-tab">
-    <Button userClass="nav-tab__btn nav-tab__btn_register">
+    <Link
+      to="/signup"
+      className="nav-tab__btn nav-tab__btn_register gradual-change"
+    >
       Регистрация
-    </Button>
-    <Button userClass="nav-tab__btn nav-tab__btn_login">
+    </Link>
+
+    <Link
+      to="/signin"
+      className="nav-tab__btn nav-tab__btn_login gradual-change"
+    >
       Войти
-    </Button>
+    </Link>
   </nav>
 );
 
