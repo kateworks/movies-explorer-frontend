@@ -45,7 +45,7 @@ function Login() {
           type="password"
           id="password" name="password"
           maxLength="20" minLength="6"
-          placeholder="Password" required
+          placeholder="Пароль" required
           errorId="password-error"
           onChange={handlePasswordChange}
           value={password}

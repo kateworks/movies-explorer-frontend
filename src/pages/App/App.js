@@ -3,6 +3,7 @@ import { Switch, Route, useHistory } from 'react-router-dom';
 
 import HomePage from '../HomePage';
 import Login from '../Login/Login';
+import Register from '../Register';
 import MoviesPage from '../MoviesPage';
 import SavedMoviesPage from '../SavedMoviesPage';
 import NotFound from '../NotFound/NotFound';
@@ -20,7 +21,7 @@ function App() {
         </Route>
 
         <Route path="/signup">
-
+          <Register/>
         </Route>
 
         <Route path="/movies">
