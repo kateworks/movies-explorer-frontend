@@ -39,6 +39,13 @@
   padding: 15px;
 }
 
+.input__item::placeholder {
+  font-size: 13px;
+  font-weight: normal;
+  line-height: 16px;
+  text-align: left;
+}
+
 .input__error {
   display: none;
 
