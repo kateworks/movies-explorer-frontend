@@ -5,7 +5,7 @@ import Input from '../components/Input/Input';
 import SubmitGroup from '../components/SubmitGroup/SubmitGroup';
 import './Login/Login.css';
 
-function Register() {
+function Register(props) {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -22,9 +22,17 @@ function Register() {
     setPassword(event.target.value);
   };
 
+  const resetForm = () => {
+    setEmail('');
+    setPassword('');
+    setName('');
+  }
+
   const handleSubmit = (event) => {
     event.preventDefault();
-    if ( !email || !password ) return;
+    console.log('submit');
+    if ( !email || !password || !name) return;
+    props.onRegister(email, password, name, resetForm);
   };
 
   return (
