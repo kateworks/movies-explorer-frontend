@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Switch, Route, useHistory } from 'react-router-dom';
 
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
@@ -18,11 +18,75 @@ import iconSuccess from '../../images/reg-success.svg';
 import iconFailure from '../../images/reg-failure.svg';
 
 function App() {
+  const [loggedIn, setLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState({ email: '', name: '' });
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [resultMessage, setResultMessage] = useState({ image: null, text: '' });
 
   let history = useHistory();
+
+  const tokenCheck = () => {
+    if (localStorage.getItem('jwt')) {
+      const jwt = localStorage.getItem('jwt');
+      auth.checkToken(jwt)
+        .then((res) => {
+          if (res) {
+            setCurrentUser({ name: res.name, email: res.email });
+            setLoggedIn(true);
+            history.push('/movies');
+          }
+        })
+        .catch(err => {
+          console.log('Переданный токен некорректен.');
+          setLoggedIn(false);
+        });
+    }
+  };
+
+  useEffect(() => {
+    tokenCheck();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [loggedIn]);
+
+  // ---------------------------------------------------------------------
+  // Авторизация
+
+  const handleLogin = (userEmail, userPassword, resetLoginForm) => {
+
+    auth.authorize(userEmail, userPassword)
+      .then((data) => {
+        if (data.token) {
+          localStorage.setItem('jwt', data.token);
+          resetLoginForm();
+          history.push('/movies');
+          setLoggedIn(true);
+        }
+      })
+      .catch(err => {
+        let messageText = '', imageLink = iconFailure;
+        switch (err) {
+          case 400:
+            messageText = "Ошибка 400, не передано одно из полей";
+            break;
+          case 401:
+            messageText = `Ошибка 401, пользователь ${userEmail} не найден`;
+            break;
+          default:
+            messageText = "Что-то пошло не так! Попробуйте ещё раз.";
+        }
+        setResultMessage({ image: imageLink, text: messageText });
+        console.log(messageText);
+        setIsPopupOpen(true);
+      });
+  };
+
+  // ---------------------------------------------------------------------
+  // Выход
+
+  const handleLogout = () => {
+    localStorage.removeItem('jwt');
+    setLoggedIn(false);
+  };
 
   // ---------------------------------------------------------------------
   // Регистрация
@@ -59,7 +123,7 @@ function App() {
       <div className={`App ${isPopupOpen ? 'no-scroll' : ''}`}>
         <Switch>
           <Route path="/signin">
-            <Login />
+            <Login onLogin={handleLogin} history={history}/>
           </Route>
 
           <Route path="/signup">

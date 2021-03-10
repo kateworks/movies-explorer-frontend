@@ -1,25 +1,23 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Form from '../../components/Form/Form';
 import Logo from '../../components/Logo/Logo';
 import Input from '../../components/Input/Input';
 import SubmitGroup from '../../components/SubmitGroup/SubmitGroup';
+import { useFormWithValidation } from '../../hooks/useFormWithValidation';
 import './Login.css';
 
-function Login() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+function Login(props) {
+  const {
+    values, handleChange, handleInput, errors, isValid, resetForm
+  } = useFormWithValidation();
 
-  const handleEmailChange = (event) => {
-    setEmail(event.target.value);
-  };
-
-  const handlePasswordChange = (event) => {
-    setPassword(event.target.value);
-  };
+  const emptyForm = () => {
+    resetForm({ email: '', password: '' }, {}, false);
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if ( !email || !password ) return;
+    props.onLogin(values.email, values.password, emptyForm);
   }
 
   return (
@@ -32,11 +30,11 @@ function Login() {
         <Input
           type="email"
           id="email" name="email"
-          maxLength="40" minLength="2"
           placeholder="E-mail" required
           errorId="email-error"
-          onChange={handleEmailChange}
-          value={email}
+          isError={errors.email} errorText={errors.email}
+          onChange={handleChange} onInput={handleInput}
+          value={values.email || ''}
         >
           E-mail
         </Input>
@@ -47,8 +45,9 @@ function Login() {
           maxLength="20" minLength="6"
           placeholder="Пароль" required
           errorId="password-error"
-          onChange={handlePasswordChange}
-          value={password}
+          isError={errors.password} errorText={errors.password}
+          onChange={handleChange} onInput={handleInput}
+          value={values.password || ''}
         >
           Пароль
         </Input>
@@ -57,6 +56,7 @@ function Login() {
           submitName="Войти"
           linkName="Регистрация"
           linkDestination="/signup"
+          submitDisabled={!isValid}
         >
           Ещё не зарегистрированы?
         </SubmitGroup>
