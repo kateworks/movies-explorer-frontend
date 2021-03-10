@@ -46,7 +46,7 @@ function App() {
   useEffect(() => {
     tokenCheck();
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [loggedIn]);
+  }, []);
 
   // ---------------------------------------------------------------------
   // Авторизация
@@ -66,16 +66,15 @@ function App() {
         let messageText = '', imageLink = iconFailure;
         switch (err) {
           case 400:
-            messageText = "Ошибка 400, не передано одно из полей";
+            messageText = "Некорректное значение одного или нескольких полей";
             break;
           case 401:
-            messageText = `Ошибка 401, пользователь ${userEmail} не найден`;
+            messageText = `Неверно указаны e-mail или пароль`;
             break;
           default:
             messageText = "Что-то пошло не так! Попробуйте ещё раз.";
         }
         setResultMessage({ image: imageLink, text: messageText });
-        console.log(messageText);
         setIsPopupOpen(true);
       });
   };
@@ -101,11 +100,13 @@ function App() {
         imageLink = iconSuccess;
       })
       .catch((err) => {
-        console.log(err);
         imageLink = iconFailure;
         switch (err) {
           case 400:
-            messageText = "Ошибка 400, некорректно заполнено одно из полей";
+            messageText = "Некорректное значение одного или нескольких полей";
+            break;
+          case 409:
+            messageText = `Пользователь ${userEmail} уже существует`;
             break;
           default:
             messageText = "Что-то пошло не так! Попробуйте ещё раз.";
@@ -113,7 +114,6 @@ function App() {
           })
       .finally(() => {
         setResultMessage({ image: imageLink, text: messageText });
-        console.log(messageText);
         setIsPopupOpen(true);
       });
   };
