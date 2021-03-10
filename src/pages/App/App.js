@@ -29,7 +29,6 @@ function App() {
 
   const handleRegister = (userEmail, userPassword, userName, resetRegisterForm) => {
     let messageText = '', imageLink = null;
-    console.log('register');
     auth.register(userEmail, userPassword, userName)
       .then((res) => {
         resetRegisterForm();
@@ -39,14 +38,13 @@ function App() {
       })
       .catch((err) => {
         console.log(err);
+        imageLink = iconFailure;
         switch (err) {
           case 400:
             messageText = "Ошибка 400, некорректно заполнено одно из полей";
-            imageLink = iconFailure;
             break;
           default:
             messageText = "Что-то пошло не так! Попробуйте ещё раз.";
-            imageLink = iconFailure;
         }
           })
       .finally(() => {

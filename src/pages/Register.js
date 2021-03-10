@@ -1,38 +1,27 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import Form from '../components/Form/Form';
 import Logo from '../components/Logo/Logo';
 import Input from '../components/Input/Input';
 import SubmitGroup from '../components/SubmitGroup/SubmitGroup';
+import { useFormWithValidation } from '../hooks/useFormWithValidation';
 import './Login/Login.css';
 
 function Register(props) {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const {
+    values, handleChange, handleInput, errors, isValid, resetForm
+  } = useFormWithValidation();
 
-  const handleNameChange = (event) => {
-    setName(event.target.value);
-  };
+  useEffect(() => {
+    resetForm({ name: '', email: '', password: '' }, {}, false);
+  }, [resetForm]);
 
-  const handleEmailChange = (event) => {
-    setEmail(event.target.value);
-  };
-
-  const handlePasswordChange = (event) => {
-    setPassword(event.target.value);
-  };
-
-  const resetForm = () => {
-    setEmail('');
-    setPassword('');
-    setName('');
+  const emptyForm = () => {
+    resetForm({ name: '', email: '', password: '' }, {}, false);
   }
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log('submit');
-    if ( !email || !password || !name) return;
-    props.onRegister(email, password, name, resetForm);
+    props.onRegister(values.email, values.password, values.name, emptyForm);
   };
 
   return (
@@ -47,20 +36,22 @@ function Register(props) {
           id="name" name="name"
           maxLength="30" minLength="2"
           placeholder="Имя" required
+          pattern="^[A-Za-z]([A-Za-z]| |-){1,28}[A-Za-z]$"
           errorId="name-error"
-          onChange={handleNameChange}
-          value={name}
+          isError={errors.name} errorText={errors.name}
+          onChange={handleChange} onInput={handleInput}
+          value={values.name || ''}
         >
           Имя
         </Input>
         <Input
           type="email"
           id="email" name="email"
-          maxLength="40" minLength="2"
           placeholder="E-mail" required
           errorId="email-error"
-          onChange={handleEmailChange}
-          value={email}
+          isError={errors.email} errorText={errors.email}
+          onChange={handleChange} onInput={handleInput}
+          value={values.email || ''}
         >
           E-mail
         </Input>
@@ -68,11 +59,12 @@ function Register(props) {
         <Input
           type="password"
           id="password" name="password"
-          maxLength="20" minLength="6"
+          maxLength="20" minLength="8"
           placeholder="Пароль" required
           errorId="password-error"
-          onChange={handlePasswordChange}
-          value={password}
+          isError={errors.password} errorText={errors.password}
+          onChange={handleChange} onInput={handleInput}
+          value={values.password || ''}
         >
           Пароль
         </Input>
@@ -81,6 +73,7 @@ function Register(props) {
           submitName="Зарегистрироваться"
           linkName="Войти"
           linkDestination="/signin"
+          submitDisabled={!isValid}
         >
           Уже зарегистрированы?
         </SubmitGroup>

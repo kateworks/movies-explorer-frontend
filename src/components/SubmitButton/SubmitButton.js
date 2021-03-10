@@ -2,8 +2,12 @@ import React from 'react';
 import Button from '../Button/Button';
 import './SubmitButton.css';
 
-const SubmitButton = ({ children }) => (
-  <Button type="submit" userClass="submit-btn">
+const SubmitButton = ({ submitDisabled, children }) => (
+  <Button
+    type="submit"
+    userClass="submit-btn"
+    disabled={submitDisabled}
+  >
     {children}
   </Button>
 );
