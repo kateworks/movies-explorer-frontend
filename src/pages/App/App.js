@@ -11,17 +11,13 @@ import ProfilePage from '../ProfilePage';
 import MoviesPage from '../MoviesPage';
 import SavedMoviesPage from '../SavedMoviesPage';
 import NotFound from '../NotFound/NotFound';
-import InfoToolTip from '../../components/InfoToolTip/InfoToolTip';
 
 import './App.css';
-import iconSuccess from '../../images/reg-success.svg';
-import iconFailure from '../../images/reg-failure.svg';
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState({ email: '', name: '' });
-  const [isPopupOpen, setIsPopupOpen] = useState(false);
-  const [resultMessage, setResultMessage] = useState({ image: null, text: '' });
+  const [resultMessage, setResultMessage] = useState('');
 
   let history = useHistory();
 
@@ -52,6 +48,7 @@ function App() {
   // Авторизация
 
   const handleLogin = (userEmail, userPassword, resetLoginForm) => {
+    let messageText = '';
 
     auth.authorize(userEmail, userPassword)
       .then((data) => {
@@ -63,7 +60,6 @@ function App() {
         }
       })
       .catch(err => {
-        let messageText = '', imageLink = iconFailure;
         switch (err) {
           case 400:
             messageText = "Некорректное значение одного или нескольких полей";
@@ -74,8 +70,9 @@ function App() {
           default:
             messageText = "Что-то пошло не так! Попробуйте ещё раз.";
         }
-        setResultMessage({ image: imageLink, text: messageText });
-        setIsPopupOpen(true);
+      })
+      .finally(() => {
+        setResultMessage(messageText);
       });
   };
 
@@ -91,16 +88,13 @@ function App() {
   // Регистрация
 
   const handleRegister = (userEmail, userPassword, userName, resetRegisterForm) => {
-    let messageText = '', imageLink = null;
+    let messageText = '';
     auth.register(userEmail, userPassword, userName)
       .then((res) => {
         resetRegisterForm();
         history.push('/signin');
-        messageText ="Вы успешно зарегистрировались!";
-        imageLink = iconSuccess;
       })
       .catch((err) => {
-        imageLink = iconFailure;
         switch (err) {
           case 400:
             messageText = "Некорректное значение одного или нескольких полей";
@@ -111,23 +105,30 @@ function App() {
           default:
             messageText = "Что-то пошло не так! Попробуйте ещё раз.";
         }
-          })
+      })
       .finally(() => {
-        setResultMessage({ image: imageLink, text: messageText });
-        setIsPopupOpen(true);
+        setResultMessage(messageText);
       });
   };
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
-      <div className={`App ${isPopupOpen ? 'no-scroll' : ''}`}>
+      <div className="App">
         <Switch>
           <Route path="/signin">
-            <Login onLogin={handleLogin} history={history}/>
+            <Login
+              onLogin={handleLogin}
+              errorMessage={resultMessage}
+              history={history}
+            />
           </Route>
 
           <Route path="/signup">
-            <Register onRegister={handleRegister} history={history} />
+            <Register
+              onRegister={handleRegister}
+              errorMessage={resultMessage}
+              history={history}
+            />
           </Route>
 
           <Route path="/movies">
@@ -151,18 +152,7 @@ function App() {
           </Route>
         </Switch>
       </div>
-
-      {/* Вывод сообщения о результатах регистрации/авторизации */}
-      { isPopupOpen &&
-        <InfoToolTip
-          onClose={() => setIsPopupOpen(false)}
-          imageLink={resultMessage.image}
-          textMessage={resultMessage.text}
-        />
-      }
     </CurrentUserContext.Provider>
-
-
   );
 }
 

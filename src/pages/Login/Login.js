@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Form from '../../components/Form/Form';
 import Logo from '../../components/Logo/Logo';
 import Input from '../../components/Input/Input';
@@ -10,14 +10,21 @@ function Login(props) {
   const {
     values, handleChange, handleInput, errors, isValid, resetForm
   } = useFormWithValidation();
+  const [errorMessage, setErrorMessage] = useState('');
+
+  useEffect(() => {
+    setErrorMessage('');
+  }, []);
 
   const emptyForm = () => {
     resetForm({ email: '', password: '' }, {}, false);
+    setErrorMessage('');
   }
 
   const handleSubmit = (e) => {
     e.preventDefault();
     props.onLogin(values.email, values.password, emptyForm);
+    setErrorMessage(props.errorMessage);
   }
 
   return (
@@ -57,6 +64,7 @@ function Login(props) {
           linkName="Регистрация"
           linkDestination="/signup"
           submitDisabled={!isValid}
+          errorMessage={errorMessage}
         >
           Ещё не зарегистрированы?
         </SubmitGroup>

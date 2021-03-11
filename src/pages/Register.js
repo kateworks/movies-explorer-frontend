@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Form from '../components/Form/Form';
 import Logo from '../components/Logo/Logo';
 import Input from '../components/Input/Input';
@@ -10,18 +10,21 @@ function Register(props) {
   const {
     values, handleChange, handleInput, errors, isValid, resetForm
   } = useFormWithValidation();
+  const [errorMessage, setErrorMessage] = useState('');
 
   useEffect(() => {
-    resetForm({ name: '', email: '', password: '' }, {}, false);
-  }, [resetForm]);
+    setErrorMessage('');
+  }, []);
 
   const emptyForm = () => {
     resetForm({ name: '', email: '', password: '' }, {}, false);
+    setErrorMessage('');
   }
 
   const handleSubmit = (event) => {
     event.preventDefault();
     props.onRegister(values.email, values.password, values.name, emptyForm);
+    setErrorMessage(props.errorMessage);
   };
 
   return (
@@ -74,6 +77,7 @@ function Register(props) {
           linkName="Войти"
           linkDestination="/signin"
           submitDisabled={!isValid}
+          errorMessage={errorMessage}
         >
           Уже зарегистрированы?
         </SubmitGroup>

@@ -5,13 +5,22 @@
   width: 100%;
   padding: 0;
   margin: 0;
-  margin-top: 179px;
+  margin-top: 149px;
 }
 
 .submit-group__box {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
+}
+
+.submit-group__error {
+  color: #EE3465;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 12px;
+  text-align: center;
+  margin-bottom: 18px;
 }
 
 .submit-group__row {
@@ -42,7 +51,7 @@
 
 @media screen and (max-width: 400px) {
   .submit-group {
-    margin-top: 157px;
+    margin-top: 127px;
   }
 
   .submit-group__row {
