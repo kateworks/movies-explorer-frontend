@@ -93,9 +93,22 @@ function App() {
     let messageText = '';
     auth.register(userEmail, userPassword, userName)
       .then((res) => {
-        console.log(res);
         resetRegisterForm();
-        history.push('/signin');
+        // history.push('/signin');
+        //------------------------------------------------------
+        auth.authorize(userEmail, userPassword)
+          .then((data) => {
+            if (data.token) {
+              localStorage.setItem('jwt', data.token);
+              history.push('/movies');
+              setLoggedIn(true);
+            }
+          })
+          .catch((err) => {
+            console.log('Переданный токен некорректен.');
+            setLoggedIn(false);
+          });
+        //------------------------------------------------------
       })
       .catch((err) => {
         switch (err) {
