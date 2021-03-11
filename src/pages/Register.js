@@ -13,18 +13,22 @@ function Register(props) {
   const [errorMessage, setErrorMessage] = useState('');
 
   useEffect(() => {
-    setErrorMessage('');
+    props.resetMessage();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    setErrorMessage(props.errorMessage);
+  }, [props.errorMessage]);
 
   const emptyForm = () => {
     resetForm({ name: '', email: '', password: '' }, {}, false);
-    setErrorMessage('');
+    props.resetMessage();
   }
 
   const handleSubmit = (event) => {
     event.preventDefault();
     props.onRegister(values.email, values.password, values.name, emptyForm);
-    setErrorMessage(props.errorMessage);
   };
 
   return (

@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Switch, Route, useHistory } from 'react-router-dom';
+import { Switch, Route, Redirect, useHistory } from 'react-router-dom';
 
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import * as auth from '../../utils/Auth';
+import ProtectedRoute from '../../components/ProtectedRoute';
 
 import HomePage from '../HomePage';
 import Login from '../Login/Login';
@@ -42,7 +43,7 @@ function App() {
   useEffect(() => {
     tokenCheck();
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [loggedIn]);
 
   // ---------------------------------------------------------------------
   // Авторизация
@@ -82,6 +83,7 @@ function App() {
   const handleLogout = () => {
     localStorage.removeItem('jwt');
     setLoggedIn(false);
+    history.push('/');
   };
 
   // ---------------------------------------------------------------------
@@ -91,6 +93,7 @@ function App() {
     let messageText = '';
     auth.register(userEmail, userPassword, userName)
       .then((res) => {
+        console.log(res);
         resetRegisterForm();
         history.push('/signin');
       })
@@ -111,36 +114,44 @@ function App() {
       });
   };
 
+  const resetResultMessage = () => {
+    setResultMessage('');
+  };
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="App">
         <Switch>
+          <ProtectedRoute path="/movies"
+            loggedIn={loggedIn}
+            component={MoviesPage}
+          />
+
+          <ProtectedRoute path="/saved-movies"
+            loggedIn={loggedIn}
+            component={SavedMoviesPage}
+          />
+
+          <ProtectedRoute path="/profile"
+            loggedIn={loggedIn}
+            component={ProfilePage}
+            onLogout={handleLogout}
+          />
+
           <Route path="/signin">
-            <Login
-              onLogin={handleLogin}
+            <Login onLogin={handleLogin}
               errorMessage={resultMessage}
+              resetMessage={resetResultMessage}
               history={history}
             />
           </Route>
 
           <Route path="/signup">
-            <Register
-              onRegister={handleRegister}
+            <Register onRegister={handleRegister}
               errorMessage={resultMessage}
+              resetMessage={resetResultMessage}
               history={history}
             />
-          </Route>
-
-          <Route path="/movies">
-            <MoviesPage/>
-          </Route>
-
-          <Route path="/saved-movies">
-            <SavedMoviesPage/>
-          </Route>
-
-          <Route path="/profile">
-            <ProfilePage/>
           </Route>
 
           <Route exact path="/">

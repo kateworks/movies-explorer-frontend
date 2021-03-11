@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Button from '../Button/Button';
 import './Profile.css';
 
-function Profile() {
+function Profile(props) {
   const [name, setName] = useState('Виталий');
   const [email, setEmail] = useState('pochta@mail.ru');
 
@@ -29,7 +29,7 @@ function Profile() {
           <input
             type="text"
             id="name" name="name"
-            class="profile__item profile__text"
+            className="profile__item profile__text"
             placeholder="Имя"
             value={name} required
             onChange={handleNameChange}
@@ -44,7 +44,7 @@ function Profile() {
           <input
             type="email"
             id="email" name="email"
-            class="profile__item profile__text"
+            className="profile__item profile__text"
             placeholder="Почта"
             value={email} required
             onChange={handleEmailChange}
@@ -56,7 +56,10 @@ function Profile() {
           <Button userClass="profile__btn">
             Редактировать
           </Button>
-          <Button userClass="profile__btn profile__btn_red">
+          <Button
+            userClass="profile__btn profile__btn_red"
+            onClick={props.onLogout}
+          >
             Выйти из аккаунта
           </Button>
         </fieldset>

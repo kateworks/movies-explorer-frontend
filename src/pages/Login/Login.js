@@ -13,18 +13,22 @@ function Login(props) {
   const [errorMessage, setErrorMessage] = useState('');
 
   useEffect(() => {
-    setErrorMessage('');
+    props.resetMessage();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    setErrorMessage(props.errorMessage);
+  }, [props.errorMessage]);
 
   const emptyForm = () => {
     resetForm({ email: '', password: '' }, {}, false);
-    setErrorMessage('');
+    props.resetMessage();
   }
 
   const handleSubmit = (e) => {
     e.preventDefault();
     props.onLogin(values.email, values.password, emptyForm);
-    setErrorMessage(props.errorMessage);
   }
 
   return (
