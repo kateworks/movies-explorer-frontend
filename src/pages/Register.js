@@ -7,14 +7,11 @@ import { useFormWithValidation } from '../hooks/useFormWithValidation';
 import './Login/Login.css';
 
 function Register(props) {
-  const {
-    values, handleChange, handleInput, errors, isValid, resetForm
-  } = useFormWithValidation();
+  const { values, handleChange, errors, isValid, resetForm } = useFormWithValidation();
   const [errorMessage, setErrorMessage] = useState('');
 
   useEffect(() => {
     props.resetMessage();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -22,7 +19,7 @@ function Register(props) {
   }, [props.errorMessage]);
 
   const emptyForm = () => {
-    resetForm({ name: '', email: '', password: '' }, {}, false);
+    resetForm({ name: '', email: '', password: '' });
     props.resetMessage();
   }
 
@@ -38,26 +35,25 @@ function Register(props) {
       </header>
 
       <Form name="form-register" title="Добро пожаловать!" onSubmit={handleSubmit}>
-        <Input
-          type="text"
+        <Input type="text"
           id="name" name="name"
           maxLength="30" minLength="2"
           placeholder="Имя" required
           pattern="^[A-Za-z]([A-Za-z]| |-){1,28}[A-Za-z]$"
           errorId="name-error"
           isError={errors.name} errorText={errors.name}
-          onChange={handleChange} onInput={handleInput}
+          onChange={handleChange}
           value={values.name || ''}
         >
           Имя
         </Input>
-        <Input
-          type="email"
+
+        <Input type="email"
           id="email" name="email"
           placeholder="E-mail" required
           errorId="email-error"
           isError={errors.email} errorText={errors.email}
-          onChange={handleChange} onInput={handleInput}
+          onChange={handleChange}
           value={values.email || ''}
         >
           E-mail
@@ -70,7 +66,7 @@ function Register(props) {
           placeholder="Пароль" required
           errorId="password-error"
           isError={errors.password} errorText={errors.password}
-          onChange={handleChange} onInput={handleInput}
+          onChange={handleChange}
           value={values.password || ''}
         >
           Пароль

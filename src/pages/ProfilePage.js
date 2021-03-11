@@ -8,6 +8,7 @@ const ProfilePage = (props) => (
     <Header>
       <Navigation/>
     </Header>
+
     <Profile onLogout={props.onLogout}/>
   </React.Fragment>
 );

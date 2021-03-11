@@ -8,7 +8,7 @@ import './Login.css';
 
 function Login(props) {
   const {
-    values, handleChange, handleInput, errors, isValid, resetForm
+    values, handleChange, errors, isValid, resetForm
   } = useFormWithValidation();
   const [errorMessage, setErrorMessage] = useState('');
 
@@ -44,7 +44,7 @@ function Login(props) {
           placeholder="E-mail" required
           errorId="email-error"
           isError={errors.email} errorText={errors.email}
-          onChange={handleChange} onInput={handleInput}
+          onChange={handleChange}
           value={values.email || ''}
         >
           E-mail
@@ -57,7 +57,7 @@ function Login(props) {
           placeholder="Пароль" required
           errorId="password-error"
           isError={errors.password} errorText={errors.password}
-          onChange={handleChange} onInput={handleInput}
+          onChange={handleChange}
           value={values.password || ''}
         >
           Пароль
