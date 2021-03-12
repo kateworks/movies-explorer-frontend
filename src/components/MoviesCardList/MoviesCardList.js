@@ -4,20 +4,28 @@ import MoviesCard from '../MoviesCard/MoviesCard';
 
 import './MoviesCardList.css';
 
-const MoviesCardList = ({ isLoading, moviesList, children }) => {
+function MoviesCardList(props) {
+
+  const getMoviesList = (moviesList) => {
+    if (moviesList.length > 0) {
+      return moviesList.map((moviesCard) => (
+        <MoviesCard key={moviesCard.movieId} movie={moviesCard}>
+          {props.children}
+        </MoviesCard>
+      ));
+    }
+    return (
+      <p className="list__no-result">
+        {props.errorMessage}
+      </p>
+    );
+  };
 
   return (
-    <ul className="MoviesCardList gradual-change">
-      { isLoading
-        ? <Preloader/>
-        : moviesList.map((moviesCard) => (
-            <MoviesCard key={moviesCard.movieId} movie={moviesCard}>
-              {children}
-            </MoviesCard>
-          ))
-      }
+    <ul className="list gradual-change">
+      {props.isLoading ? <Preloader /> : getMoviesList(props.moviesList) }
     </ul>
   );
-};
+}
 
 export default MoviesCardList;

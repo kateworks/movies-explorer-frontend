@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Button from '../Button/Button';
 import RoundSwitch from '../RoundSwitch/RoundSwitch';
 import './SearchForm.css';
@@ -6,6 +6,11 @@ import './SearchForm.css';
 function SearchForm(props) {
   const [isSwitchOn, setIsSwitchOn] = useState(true);
   const [searchString, setSearchString] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
+
+  useEffect(() => {
+    setErrorMessage('');
+  }, [searchString]);
 
   const handleSwitchChange = (event) => {
     setIsSwitchOn(event.target.checked);
@@ -16,13 +21,18 @@ function SearchForm(props) {
   };
 
   const handleSubmit = (event) => {
+    event.preventDefault();
+    if (!searchString) {
+      setErrorMessage('Нужно ввести ключевое слово');
+      return;
+    }
     props.onSubmit(event, searchString, isSwitchOn);
   };
 
   return (
     <div className="search gradual-change">
-      <form
-        name='search-form'
+
+      <form name='search-form'
         className='search__form search__box'
         onSubmit={handleSubmit}
       >
@@ -31,7 +41,7 @@ function SearchForm(props) {
             type="text"
             id="search-input" name="search-input"
             className="search__input search__box"
-            placeholder="Фильм" required
+            placeholder="Фильм"
             value={searchString} onChange={handleStringChange}
           />
 
@@ -48,6 +58,10 @@ function SearchForm(props) {
           </p>
         </fieldset>
       </form>
+
+      <p className="search__input_error search__box">
+        {errorMessage}
+      </p>
     </div>
   );
 }

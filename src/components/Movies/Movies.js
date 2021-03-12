@@ -1,24 +1,24 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import RoundCheckBox from '../RoundCheckBox/RoundCheckBox';
 import Button from '../Button/Button';
 
-//import { initialMovies } from '../../utils/movies-init';
-import moviesApi from '../../utils/MoviesApi';
-import { MOVIES_URL } from '../../utils/MoviesApi';
+import moviesApi, { MOVIES_URL } from '../../utils/MoviesApi';
 import './Movies.css';
 
 function Movies() {
   const [moviesList, setMoviesList] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [foundMovies, setFoundMovies] = useState([]);
+  const [findErrorMessage, setFindErrorMessage] = useState('');
 
   const readMovies = () => {
     setIsLoading(true);
     moviesApi.getAllMovies()
       .then((movies) => {
         //console.log(movies);
+        setFindErrorMessage('');
         setMoviesList(movies.map(movie => {
           return {
             movieId: movie.id,
@@ -38,14 +38,20 @@ function Movies() {
       })
       .catch((err) => {
         console.log(`Ошибка загрузки данных: ${err}.`);
+        setFindErrorMessage(
+          `Во время запроса произошла ошибка.` +
+          `Возможно, проблема с соединением или сервер недоступен.\n` +
+          `Подождите немного и попробуйте ещё раз`
+        );
       })
       .finally(() => {
         setIsLoading(false);
       });
   };
 
-  const searchMovies = (string, moviesList) => {
+  const searchMovies = (string, short, moviesList) => {
     const checkField = (field, string) => (field ? field.toLowerCase().includes(string) : false);
+    const maxDuration = short ? 40 : 10000;
 
     return moviesList.filter((movie) => {
       const c1 = checkField(movie.nameRU, string);
@@ -53,15 +59,14 @@ function Movies() {
       const c3 = checkField(movie.director, string);
       const c4 = checkField(movie.country, string);
       const c5 = checkField(movie.year, string);
-      return (c1 || c2 || c3 || c4 || c5);
+      const c6 = movie.duration ? movie.duration <= maxDuration : false;
+      return ((c1 || c2 || c3 || c4 || c5) && c6);
     });
   };
 
   const handleSearchSubmit = (event, searchString, isShort) => {
-    event.preventDefault();
     readMovies();
-    const found = searchMovies(searchString.toLowerCase(), moviesList);
-    console.log(found);
+    const found = searchMovies(searchString.toLowerCase(), isShort, moviesList);
     setFoundMovies(found);
   };
 
@@ -69,7 +74,11 @@ function Movies() {
     <section className="movies">
       <SearchForm onSubmit={handleSearchSubmit}/>
 
-      <MoviesCardList moviesList={foundMovies} isLoading={isLoading}>
+      <MoviesCardList
+        moviesList={foundMovies}
+        isLoading={isLoading}
+        errorMessage={findErrorMessage}
+      >
         <RoundCheckBox isChecked={false}/>
       </MoviesCardList>
 

@@ -40,6 +40,16 @@
   align-items: center;
 }
 
+.search__input_error {
+  color: #EE3465;
+  font-size: 12px;
+  font-weight: normal;
+  line-height: 12px;
+  text-align: center;
+  width: 100%;
+  padding-top: 18px;
+}
+
 .search__input {
   background-color: transparent;
   background-image: url(../../images/search-icon.svg);

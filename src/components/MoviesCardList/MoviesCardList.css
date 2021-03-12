@@ -1,4 +1,4 @@
-.MoviesCardList {
+.list {
   list-style-type: none;
   overflow: hidden;
 
@@ -12,8 +12,17 @@
   margin: 0;
 }
 
+.list__no-result {
+  color: #a0a0a0;
+  font-size: 18px;
+  font-weight: normal;
+  line-height: 20px;
+  text-align: center;
+  width: 100%;
+}
+
 @media screen and (max-width: 770px) {
-  .MoviesCardList {
+  .list {
     column-gap: 30px;
     row-gap: 36px;
     padding: 70px 30px 30px 30px;
@@ -21,7 +30,7 @@
 }
 
 @media screen and (max-width: 400px) {
-  .MoviesCardList {
+  .list {
     column-gap: 0px;
     row-gap: 20px;
     padding: 40px 10px 30px 10px;
