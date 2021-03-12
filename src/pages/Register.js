@@ -12,7 +12,7 @@ function Register(props) {
 
   useEffect(() => {
     props.resetMessage();
-  }, []);
+  }, [values]);
 
   useEffect(() => {
     setErrorMessage(props.errorMessage);
@@ -20,7 +20,6 @@ function Register(props) {
 
   const emptyForm = () => {
     resetForm({ name: '', email: '', password: '' });
-    props.resetMessage();
   }
 
   const handleSubmit = (event) => {
@@ -51,6 +50,7 @@ function Register(props) {
         <Input type="email"
           id="email" name="email"
           placeholder="E-mail" required
+          pattern="^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$"
           errorId="email-error"
           isError={errors.email} errorText={errors.email}
           onChange={handleChange}

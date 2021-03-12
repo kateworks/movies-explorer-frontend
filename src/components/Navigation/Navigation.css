@@ -29,6 +29,7 @@
 
 .menu__link_active {
   font-weight: 500;
+  pointer-events: none;
 }
 
 .menu__link_film + .menu__link_film {

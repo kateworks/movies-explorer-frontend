@@ -9,9 +9,7 @@ import './Profile.css';
 
 function Profile(props) {
   const currentUser = useContext(CurrentUserContext);
-  const {
-    values, handleChange, handleInput, errors, isValid, resetForm,
-  } = useFormWithValidation();
+  const { values, handleChange, errors, isValid, resetForm } = useFormWithValidation();
 
   const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
   const [serverErrorMessage, setServerErrorMessage] = useState('');
@@ -19,7 +17,11 @@ function Profile(props) {
 
   useEffect(() => {
     resetForm({ name: currentUser.name, email: currentUser.email });
-  }, [currentUser, resetForm]);
+  }, [currentUser]);
+
+  useEffect(() => {
+    setServerErrorMessage('');
+  }, [values]);
 
   useEffect(() => {
     const condition1 =
@@ -55,7 +57,16 @@ function Profile(props) {
         setTimeout(() => setServerErrorMessage(''), 1000);
       })
       .catch((err) => {
-        setServerErrorMessage(`Невозможно сохранить данные на сервере. ${err}.`);
+        switch (err) {
+          case 400:
+            setServerErrorMessage("Некорректное значение одного или нескольких полей");
+            break;
+          case 409:
+            setServerErrorMessage(`Пользователь ${values.email} уже существует.`);
+            break;
+          default:
+            setServerErrorMessage(`Невозможно сохранить данные на сервере. Ошибка ${err}.`);
+          }
       });
   };
 
@@ -79,7 +90,7 @@ function Profile(props) {
             className={`profile__item profile__text ${errors.name ? 'profile__text_error' : ''}`}
             placeholder="Имя"
             pattern="^[A-Za-z]([A-Za-z]| |-){1,28}[A-Za-z]$"
-            onChange={handleChange} onInput={handleInput}
+            onChange={handleChange}
             value={values.name || ''} required
           />
 
@@ -89,9 +100,10 @@ function Profile(props) {
 
           <input type="email"
             id="email" name="email"
-            className="profile__item profile__text"
+            className={`profile__item profile__text ${errors.email ? 'profile__text_error' : ''}`}
             placeholder="Почта"
-            onChange={handleChange} onInput={handleInput}
+            pattern="^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$"
+            onChange={handleChange}
             value={values.email || ''} required
           />
         </fieldset>

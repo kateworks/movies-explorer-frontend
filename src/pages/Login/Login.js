@@ -7,23 +7,19 @@ import { useFormWithValidation } from '../../hooks/useFormWithValidation';
 import './Login.css';
 
 function Login(props) {
-  const {
-    values, handleChange, errors, isValid, resetForm
-  } = useFormWithValidation();
+  const { values, handleChange, errors, isValid, resetForm } = useFormWithValidation();
   const [errorMessage, setErrorMessage] = useState('');
 
   useEffect(() => {
     props.resetMessage();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [values]);
 
   useEffect(() => {
     setErrorMessage(props.errorMessage);
   }, [props.errorMessage]);
 
   const emptyForm = () => {
-    resetForm({ email: '', password: '' }, {}, false);
-    props.resetMessage();
+    resetForm({ email: '', password: '' });
   }
 
   const handleSubmit = (e) => {
@@ -42,6 +38,7 @@ function Login(props) {
           type="email"
           id="email" name="email"
           placeholder="E-mail" required
+          pattern="^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$"
           errorId="email-error"
           isError={errors.email} errorText={errors.email}
           onChange={handleChange}
@@ -53,7 +50,7 @@ function Login(props) {
         <Input
           type="password"
           id="password" name="password"
-          maxLength="20" minLength="6"
+          maxLength="20" minLength="8"
           placeholder="Пароль" required
           errorId="password-error"
           isError={errors.password} errorText={errors.password}
