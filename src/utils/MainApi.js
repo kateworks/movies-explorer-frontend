@@ -32,6 +32,23 @@ class MainApi {
     .then(res => this._handleResponse(res));
   }
 
+  postNewMovie(item) {
+    return fetch(`${this._baseUrl}/movies`, {
+      method: 'POST',
+      headers: this.getHeaders(),
+      body: JSON.stringify(item)
+    })
+    .then(res => this._handleResponse(res));
+  }
+
+  deleteMovie(movieId) {
+    return fetch(`${this._baseUrl}/movies/${movieId}`, {
+      method: 'DELETE',
+      headers: this.getHeaders()
+    })
+    .then(res => this._handleResponse(res));
+  }
+
   getHeaders() {
     const token = localStorage.getItem('jwt');
     return {

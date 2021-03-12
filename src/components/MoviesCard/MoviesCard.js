@@ -14,7 +14,7 @@ function MoviesCard({ movie, children }) {
       <div className="card__wrapper">
         <img
           className="card__image"
-          src={movie.thumbnail}
+          src={movie.image}
           alt={movie.nameRU} />
       </div>
 

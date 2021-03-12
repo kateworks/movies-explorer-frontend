@@ -11,7 +11,7 @@ const MoviesCardList = ({ isLoading, moviesList, children }) => {
       { isLoading
         ? <Preloader/>
         : moviesList.map((moviesCard) => (
-            <MoviesCard key={moviesCard.id} movie={moviesCard}>
+            <MoviesCard key={moviesCard.movieId} movie={moviesCard}>
               {children}
             </MoviesCard>
           ))
