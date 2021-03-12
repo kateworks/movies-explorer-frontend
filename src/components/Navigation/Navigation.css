@@ -35,6 +35,10 @@
   margin-left: 20px;
 }
 
+.menu__link_film_blue {
+  color: #fff;
+}
+
 .menu__link_profile {
   background-color: #F9F9F9;
   border-radius: 20px;
@@ -45,6 +49,13 @@
   width: 100px;
   height: 32px;
   margin-left: 50px;
+}
+
+.menu__link_profile_blue {
+  color: #000;
+  background-color: #2BE080;
+  font-size: 12px;
+  font-weight: 500;
 }
 
 .menu__button {
@@ -59,6 +70,10 @@
 
 .menu__button:hover {
   opacity: .5;
+}
+
+.menu__button_blue {
+  background-image: url(../../images/menu-icon-white.svg);
 }
 
 @media screen and (max-width: 770px) {

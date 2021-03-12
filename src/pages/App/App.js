@@ -83,6 +83,7 @@ function App() {
   const handleLogout = () => {
     localStorage.removeItem('jwt');
     setLoggedIn(false);
+    setCurrentUser({ name: '', email: '' });
     history.push('/');
   };
 
