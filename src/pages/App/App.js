@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Switch, Route, Redirect, useHistory } from 'react-router-dom';
+import { Switch, Route, useHistory } from 'react-router-dom';
 
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import * as auth from '../../utils/Auth';
@@ -81,6 +81,7 @@ function App() {
   // Выход
 
   const handleLogout = () => {
+    localStorage.removeItem('foundMovies');
     localStorage.removeItem('jwt');
     setLoggedIn(false);
     setCurrentUser({ name: '', email: '' });

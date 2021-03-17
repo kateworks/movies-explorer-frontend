@@ -15,9 +15,9 @@ function MoviesCardList(props) {
       ));
     }
     return (
-      <p className="list__no-result">
+      <div className="list__no-result">
         {props.errorMessage}
-      </p>
+      </div>
     );
   };
 

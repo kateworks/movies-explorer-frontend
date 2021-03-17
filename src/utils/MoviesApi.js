@@ -15,12 +15,12 @@ class MoviesApi {
     return Promise.reject(res.status);
   }
 
-  getAllMovies() {
-    return fetch(`${this._baseUrl}/beatfilm-movies`, {
+  async getAllMovies() {
+    const res = await fetch(`${this._baseUrl}/beatfilm-movies`, {
       method: 'GET',
       headers: this._headers
-    })
-    .then(res => this._handleResponse(res));
+    });
+    return this._handleResponse(res);
   }
 }
 
