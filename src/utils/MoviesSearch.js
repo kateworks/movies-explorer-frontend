@@ -41,7 +41,9 @@ export const readMovies = async () => {
       `Подождите немного и попробуйте ещё раз`,
     ];
 
-    const errString = errMsg.map((item, index) => <p key={index}>{item}</p>);
+    const errString = errMsg.map((item, index) => {
+      return <p key={index} className="list__no-result">{item}</p>;
+    });
 
     return Promise.reject(errString);
   };
@@ -69,6 +71,8 @@ export const filterMovies = async (searchString, short, moviesList) => {
   });
 
   if (foundMovies.length > 0) return Promise.resolve(foundMovies);
-  return Promise.reject('Ничего не найдено');
+
+  const errString = <p className="list__no-result">Ничего не найдено</p>;
+  return Promise.reject(errString);
 };
 
