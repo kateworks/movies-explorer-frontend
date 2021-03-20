@@ -35,19 +35,15 @@ function Movies() {
   useEffect(() => {
     if (foundMovies.length <= visualProps.total) {
       setVisibleCardsNumber(foundMovies.length);
-    } else {
-      setVisibleCardsNumber(visualProps.total)
-    }
-  }, [foundMovies, visualProps.total]);
-
-  useEffect(() => {
-    if (foundMovies.length <= visibleCardsNumber) {
-      setShowedMovies(foundMovies);
       setIsMoreVisible(false);
     } else {
-      setShowedMovies(foundMovies.slice(0, visibleCardsNumber));
+      setVisibleCardsNumber(visualProps.total)
       setIsMoreVisible(true);
     }
+  }, [foundMovies, visualProps]);
+
+  useEffect(() => {
+    setShowedMovies(foundMovies.slice(0, visibleCardsNumber));
   }, [visibleCardsNumber, foundMovies]);
 
   // -------------------------------------------------------------------------------
@@ -86,7 +82,15 @@ function Movies() {
   };
 
   const handleMoreClick = (event) => {
-    setVisibleCardsNumber(visibleCardsNumber + visualProps.add);
+    // Определяем количество отображаемых карточек
+    let newValue = visibleCardsNumber + visualProps.add;
+    let length = foundMovies.length;
+
+    if (newValue >= length) {
+      newValue = length;
+      setIsMoreVisible(false);
+    }
+    setVisibleCardsNumber(newValue);
   };
 
   return (

@@ -23,7 +23,7 @@ function SearchForm(props) {
   const handleSubmit = (event) => {
     event.preventDefault();
     if (!searchString) {
-      setErrorMessage('Нужно ввести ключевое слово');
+      setErrorMessage('Нужно ввести ключевое слово (название, режиссер, страна или год)');
       return;
     }
     props.onSubmit(event, searchString, isSwitchOn);
