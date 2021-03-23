@@ -32,6 +32,14 @@ class MainApi {
     .then(res => this._handleResponse(res));
   }
 
+  getMovies() {
+    return fetch(`${this._baseUrl}/movies`, {
+      method: 'GET',
+      headers: this.getHeaders()
+    })
+    .then(res => this._handleResponse(res));
+  }
+
   postNewMovie(item) {
     return fetch(`${this._baseUrl}/movies`, {
       method: 'POST',

@@ -36,6 +36,8 @@ function App() {
         .catch(err => {
           console.log('Переданный токен некорректен.');
           setLoggedIn(false);
+          localStorage.removeItem('foundMovies');
+          localStorage.removeItem('jwt');
         });
     }
   };

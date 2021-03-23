@@ -4,6 +4,7 @@
 //--------------------------------------------------------------------------------------
 
 import moviesApi, { MOVIES_URL } from './MoviesApi';
+import mainApi from './MainApi';
 
 //--------------------------------------------------------------------------------------
 // Чтение данных с сервиса beatfilm-movies
@@ -17,17 +18,16 @@ export const readMovies = async () => {
     const moviesList = movies.map(movie => {
       return {
         movieId: movie.id,
-        country: movie.country,
-        director: movie.director,
-        duration: movie.duration,
-        year: movie.year,
-        description: movie.description,
-        image: movie.image ? `${MOVIES_URL}${movie.image.url}` : '',
-        trailer: movie.trailerLink,
-        thumbnail: movie.image ? `${MOVIES_URL}${movie.image.formats.thumbnail.url}` : '',
-        owner: 0,
-        nameRU: movie.nameRU,
-        nameEN: movie.nameEN,
+        country: movie.country || '-',
+        director: movie.director || '-',
+        duration: movie.duration || 0,
+        year: movie.year || '2021',
+        description: movie.description || '-',
+        image: movie.image ? `${MOVIES_URL}${movie.image.url}` : 'https://fakeimg.pl/300/',
+        trailer: movie.trailerLink || 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
+        nameRU: movie.nameRU || '',
+        nameEN: movie.nameEN || '',
+        thumbnail: movie.image ? `${MOVIES_URL}${movie.image.formats.thumbnail.url}` : 'https://fakeimg.pl/300/',
       };
     });
 
@@ -75,4 +75,31 @@ export const filterMovies = async (searchString, short, moviesList) => {
   const errString = <p className="list__no-result">Ничего не найдено</p>;
   return Promise.reject(errString);
 };
+
+export const addSavedFlag = (films, savedFilms) => {
+  // Просматриваем массив найденных фильмов
+  return films.map((film) => {
+    const {
+      movieId, country, director, duration,
+      year, description, image, trailer,
+      nameRU, nameEN, thumbnail,
+    } = film;
+
+    // Проверяем, есть ли данный фильм в списке сохраненных
+    const saved = savedFilms.filter(savedFilm => savedFilm.movieId === movieId);
+
+    // Устанавливаем флаг saved в зависимости от результатов поиска
+    let savedId = 0;
+    if (saved.length === 1) savedId = saved[0]._id;
+
+    const newFilm = {
+      movieId, country, director, duration,
+      year, description, image, trailer,
+      nameRU, nameEN, thumbnail, saved: savedId,
+    };
+
+    return newFilm;
+  });
+};
+
 

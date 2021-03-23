@@ -26,7 +26,7 @@ function SearchForm(props) {
       setErrorMessage('Нужно ввести ключевое слово (название, режиссер, страна или год)');
       return;
     }
-    props.onSubmit(event, searchString, isSwitchOn);
+    props.onSubmit(searchString, isSwitchOn);
   };
 
   return (

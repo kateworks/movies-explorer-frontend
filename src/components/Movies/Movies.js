@@ -1,18 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
-import RoundCheckBox from '../RoundCheckBox/RoundCheckBox';
 import Button from '../Button/Button';
 
-import { readMovies, filterMovies } from '../../utils/MoviesSearch';
+import { readMovies, filterMovies, addSavedFlag } from '../../utils/MoviesSearch';
 import { useWindowDimensions } from '../../hooks/useDimensions';
 import { getVisualProps } from '../../utils/VisualProps';
 import './Movies.css';
+import mainApi from '../../utils/MainApi';
 
 function Movies() {
   const [isLoading, setIsLoading] = useState(false);
   const [isMoreVisible, setIsMoreVisible] = useState(false);
 
+  const [savedMovies, setSavedMovies] = useState([]);
   const [foundMovies, setFoundMovies] = useState([]);
   const [showedMovies, setShowedMovies] = useState([]);
   const [findErrorMessage, setFindErrorMessage] = useState('');
@@ -21,10 +22,18 @@ function Movies() {
   const [visualProps, setVisualProps] = useState({total: 12, add: 3});
   const [visibleCardsNumber, setVisibleCardsNumber] = useState(0);
 
-  // При монтировании читаем данные из хранилища
   useEffect(() => {
+    // При монтировании читаем данные из хранилища
     const found = localStorage.getItem('foundMovies');
     if (found) setFoundMovies(JSON.parse(found));
+    // ... а также сохраненные фильмы
+    mainApi.getMovies()
+    .then((data) => {
+      setSavedMovies(data);
+    })
+    .catch((err) => {
+      console.log(`Нет доступа к сохраненным фильмам: ${err}`);
+    });
   }, []);
 
   // При изменении ширины меняем параметры отображения
@@ -46,6 +55,10 @@ function Movies() {
     setShowedMovies(foundMovies.slice(0, visibleCardsNumber));
   }, [visibleCardsNumber, foundMovies]);
 
+  useEffect(() => {
+
+  }, [savedMovies]);
+
   // -------------------------------------------------------------------------------
   // Поиск фильмов
 
@@ -56,18 +69,20 @@ function Movies() {
     setFindErrorMessage('');
     if (localStorage.getItem('foundMovies')) localStorage.removeItem('foundMovies');
 
-    let movies, found;
     try {
       setIsLoading(true);
 
       // Читаем фильмы с сервиса beatfilm-movies
-      movies = await readMovies();
+      const movies = await readMovies();
 
       // Выполняем поиск
-      found = await filterMovies(searchString.toLowerCase(), isShort, movies);
+      const found = await filterMovies(searchString.toLowerCase(), isShort, movies);
 
-      setFoundMovies(found);
-      localStorage.setItem('foundMovies', JSON.stringify(found));
+      // Добавить признак того, сохранена ли карточка
+      const foundChecked = addSavedFlag(found, savedMovies.slice());
+      setFoundMovies(foundChecked);
+
+      localStorage.setItem('foundMovies', JSON.stringify(foundChecked));
 
     } catch (err) {
       setFindErrorMessage(err);
@@ -77,11 +92,11 @@ function Movies() {
   };
 
   // Параметры (searchString, isShort) получаем из компонента SearchForm
-  const handleSearchSubmit = (event, searchString, isShort) => {
+  const handleSearchSubmit = (searchString, isShort) => {
     searchMain(searchString, isShort);
   };
 
-  const handleMoreClick = (event) => {
+  const handleMoreClick = () => {
     // Определяем количество отображаемых карточек
     let newValue = visibleCardsNumber + visualProps.add;
     let length = foundMovies.length;
@@ -93,6 +108,81 @@ function Movies() {
     setVisibleCardsNumber(newValue);
   };
 
+  const handleSaveClick = async (movieId) => {
+    try {
+      // Находим сохраняемый/удаляемый фильм
+      const films = foundMovies.filter(currentMovie => currentMovie.movieId === movieId);
+      if (films.length !== 1) throw new Error("Ошибка при сохранении/удалении фильма");
+
+      let newFoundMovies = [];
+
+      if (films[0].saved === 0) {
+        delete films[0].saved;
+        const result = await mainApi.postNewMovie(films[0]);
+
+        const {
+          movieId, country, director, duration, year,
+          description, image, trailer, nameRU, nameEN,
+          thumbnail, _id,
+        } = result;
+
+        const newFilm = {
+          movieId, country, director, duration, year,
+          description, image, trailer, nameRU, nameEN,
+          thumbnail, saved: _id,
+        };
+
+        // Дополняем массивы foundMovies & savedMovies
+        newFoundMovies = foundMovies.map((item) => (
+          item.movieId === movieId ? newFilm : item
+        ));
+
+        setFoundMovies(newFoundMovies);
+
+        const newSavedMovies = savedMovies.slice();
+        newSavedMovies.push(result);
+        setSavedMovies(newSavedMovies);
+
+      } else {
+        const result = await mainApi.deleteMovie(films[0].saved);
+
+        const {
+          movieId, country, director, duration, year,
+          description, image, trailer, nameRU, nameEN,
+          thumbnail,
+        } = result;
+
+        const newFilm = {
+          movieId, country, director, duration, year,
+          description, image, trailer, nameRU, nameEN,
+          thumbnail, saved: 0,
+        };
+
+        // Дополняем массивы foundMovies & savedMovies
+        newFoundMovies = foundMovies.map((item) => (
+          item.movieId === movieId ? newFilm : item
+        ));
+
+        setFoundMovies(newFoundMovies);
+
+        const newSavedMovies = savedMovies.filter((item) => (
+          item.movieId !== movieId
+        ));
+        setSavedMovies(newSavedMovies);
+      }
+
+      if (localStorage.getItem('foundMovies')) localStorage.removeItem('foundMovies');
+      localStorage.setItem('foundMovies', JSON.stringify(newFoundMovies));
+
+    } catch(err) {
+      console.log(err);
+    }
+  };
+
+  const handleCardClick = (movie) => {
+    console.log(movie);
+  };
+
   return (
     <section className="movies">
       <SearchForm onSubmit={handleSearchSubmit}/>
@@ -101,9 +191,10 @@ function Movies() {
         moviesList={showedMovies}
         isLoading={isLoading}
         errorMessage={findErrorMessage}
-      >
-        <RoundCheckBox isChecked={false}/>
-      </MoviesCardList>
+        onSave={handleSaveClick}
+        savedFilms={false}
+        onClick={handleCardClick}
+      />
 
       { isMoreVisible ?
         <Button userClass="movies__btn_action_more" onClick={handleMoreClick}>

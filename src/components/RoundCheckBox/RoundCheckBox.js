@@ -1,11 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './RoundCheckBox.css';
 
 const RoundCheckBox = (props) => {
-  const [isChecked, setIsChecked] = useState(props.isChecked);
 
-  const handleChange = (e) => {
-    setIsChecked(e.target.checked);
+  const handleChange = () => {
+    props.onChange(props.movieId);
   };
 
   return (
@@ -13,7 +12,7 @@ const RoundCheckBox = (props) => {
       <input
         className="round-btn__input"
         type="checkbox"
-        checked={isChecked}
+        checked={props.isChecked || false}
         onChange={handleChange}
       />
 

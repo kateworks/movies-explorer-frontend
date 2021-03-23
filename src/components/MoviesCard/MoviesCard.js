@@ -1,12 +1,17 @@
 import React from 'react';
+import { getVisualProps } from '../../utils/VisualProps';
 import './MoviesCard.css';
 
-function MoviesCard({ movie, children }) {
+function MoviesCard({ movie, children, onClick }) {
 
   const getMovieDuration = (duration) => {
     const hours = Math.floor(duration / 60)
     const minutes = duration - hours * 60;
     return `${hours}ч${minutes}м`;
+  };
+
+  const handleClick = () => {
+    onClick(movie);
   };
 
   return (
@@ -15,7 +20,9 @@ function MoviesCard({ movie, children }) {
         <img
           className="card__image"
           src={movie.image}
-          alt={movie.nameRU} />
+          alt={movie.nameRU}
+          onClick={handleClick}
+        />
       </div>
 
       <ul className="card__info">
