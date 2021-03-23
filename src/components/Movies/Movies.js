@@ -208,7 +208,7 @@ function Movies() {
   };
 
   const handleCardClick = (movie) => {
-    console.log(movie);
+    window.open(movie.trailer, '_blank');
   };
 
   const handleSwitchChange = () => {
