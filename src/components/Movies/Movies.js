@@ -3,15 +3,21 @@ import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Button from '../Button/Button';
 
+import mainApi from '../../utils/MainApi';
 import { readMovies, filterMovies, addSavedFlag } from '../../utils/MoviesSearch';
 import { useWindowDimensions } from '../../hooks/useDimensions';
 import { getVisualProps } from '../../utils/VisualProps';
+
+import {
+  NOT_FOUND_ERR_BLOCK, SAVE_FILM_ERR_TEXT, SHORT_FILM_DURATION
+} from '../../utils/Const';
 import './Movies.css';
-import mainApi from '../../utils/MainApi';
 
 function Movies() {
   const [isLoading, setIsLoading] = useState(false);
   const [isMoreVisible, setIsMoreVisible] = useState(false);
+  const [isSwitchOn, setIsSwitchOn] = useState(false);
+  const [isSwitchDisabled, setIsSwitchDisabled] = useState(true);
 
   const [savedMovies, setSavedMovies] = useState([]);
   const [foundMovies, setFoundMovies] = useState([]);
@@ -24,8 +30,13 @@ function Movies() {
 
   useEffect(() => {
     // При монтировании читаем данные из хранилища
-    const found = localStorage.getItem('foundMovies');
-    if (found) setFoundMovies(JSON.parse(found));
+    const fromStorage = localStorage.getItem('foundMovies');
+    if (fromStorage) {
+      const found = JSON.parse(fromStorage);
+      setFoundMovies(found);
+      setIsSwitchDisabled(found.length === 0);
+    }
+
     // ... а также сохраненные фильмы
     mainApi.getMovies()
     .then((data) => {
@@ -56,18 +67,33 @@ function Movies() {
   }, [visibleCardsNumber, foundMovies]);
 
   useEffect(() => {
+    const fromStorage = localStorage.getItem('foundMovies');
+    if (!fromStorage) return;
+    const found = JSON.parse(fromStorage);
 
-  }, [savedMovies]);
+    if (isSwitchOn) {
+      const foundFilter = found.filter(item => item.duration <= SHORT_FILM_DURATION);
+      setFoundMovies(foundFilter);
+      if (foundFilter.length === 0) {
+        setFindErrorMessage(NOT_FOUND_ERR_BLOCK);
+      }
+    } else {
+      setFoundMovies(found);
+    }
+  }, [isSwitchOn]);
 
   // -------------------------------------------------------------------------------
   // Поиск фильмов
 
-  const searchMain = async (searchString, isShort) => {
+  const searchMain = async (searchString) => {
     // Начальные значения
     setFoundMovies([]);
     setShowedMovies([]);
     setFindErrorMessage('');
+    setIsSwitchOn(false);
+    setIsSwitchDisabled(true);
     if (localStorage.getItem('foundMovies')) localStorage.removeItem('foundMovies');
+    if (localStorage.getItem('searchString')) localStorage.removeItem('searchString');
 
     try {
       setIsLoading(true);
@@ -76,13 +102,15 @@ function Movies() {
       const movies = await readMovies();
 
       // Выполняем поиск
-      const found = await filterMovies(searchString.toLowerCase(), isShort, movies);
+      const found = await filterMovies(searchString.toLowerCase(), movies);
 
       // Добавить признак того, сохранена ли карточка
       const foundChecked = addSavedFlag(found, savedMovies.slice());
       setFoundMovies(foundChecked);
 
       localStorage.setItem('foundMovies', JSON.stringify(foundChecked));
+      localStorage.setItem('searchString', JSON.stringify(searchString));
+      setIsSwitchDisabled(false);
 
     } catch (err) {
       setFindErrorMessage(err);
@@ -91,9 +119,9 @@ function Movies() {
     };
   };
 
-  // Параметры (searchString, isShort) получаем из компонента SearchForm
-  const handleSearchSubmit = (searchString, isShort) => {
-    searchMain(searchString, isShort);
+  // Параметр searchString получаем из компонента SearchForm
+  const handleSearchSubmit = (searchString) => {
+    searchMain(searchString);
   };
 
   const handleMoreClick = () => {
@@ -112,7 +140,7 @@ function Movies() {
     try {
       // Находим сохраняемый/удаляемый фильм
       const films = foundMovies.filter(currentMovie => currentMovie.movieId === movieId);
-      if (films.length !== 1) throw new Error("Ошибка при сохранении/удалении фильма");
+      if (films.length !== 1) throw new Error(SAVE_FILM_ERR_TEXT);
 
       let newFoundMovies = [];
 
@@ -183,9 +211,18 @@ function Movies() {
     console.log(movie);
   };
 
+  const handleSwitchChange = () => {
+    setIsSwitchOn(!isSwitchOn);
+  };
+
   return (
     <section className="movies">
-      <SearchForm onSubmit={handleSearchSubmit}/>
+      <SearchForm
+        onSubmit={handleSearchSubmit}
+        onSwitchChange={handleSwitchChange}
+        isSwitchOn={isSwitchOn}
+        isSwitchDisabled={isSwitchDisabled}
+      />
 
       <MoviesCardList
         moviesList={showedMovies}

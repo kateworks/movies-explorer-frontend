@@ -4,7 +4,7 @@
 //--------------------------------------------------------------------------------------
 
 import moviesApi, { MOVIES_URL } from './MoviesApi';
-import mainApi from './MainApi';
+import { NOT_FOUND_ERR_BLOCK } from './Const';
 
 //--------------------------------------------------------------------------------------
 // Чтение данных с сервиса beatfilm-movies
@@ -56,8 +56,7 @@ const checkField = (field, searchString) => {
 //--------------------------------------------------------------------------------------
 // Выполняем поиск в массиве фильмов
 
-export const filterMovies = async (searchString, short, moviesList) => {
-  const maxDuration = short ? 40 : 100000;
+export const filterMovies = async (searchString, moviesList) => {
   const string = searchString.toLowerCase();
 
   const foundMovies = moviesList.filter((movie) => {
@@ -66,14 +65,12 @@ export const filterMovies = async (searchString, short, moviesList) => {
     const c3 = checkField(movie.director, string);
     const c4 = checkField(movie.country, string);
     const c5 = checkField(movie.year, string);
-    const c6 = movie.duration ? movie.duration <= maxDuration : false;
-    return ((c1 || c2 || c3 || c4 || c5) && c6);
+    return (c1 || c2 || c3 || c4 || c5);
   });
 
   if (foundMovies.length > 0) return Promise.resolve(foundMovies);
 
-  const errString = <p className="list__no-result">Ничего не найдено</p>;
-  return Promise.reject(errString);
+  return Promise.reject(NOT_FOUND_ERR_BLOCK);
 };
 
 export const addSavedFlag = (films, savedFilms) => {

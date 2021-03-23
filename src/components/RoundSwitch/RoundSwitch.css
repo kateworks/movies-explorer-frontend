@@ -5,10 +5,6 @@
   height: 20px;
 }
 
-.switch:hover {
-  opacity: .7;
-}
-
 .switch__input {
   opacity: 0;
   width: 0;
@@ -26,6 +22,7 @@
   border-radius: 20px;
   transition: .4s;
   cursor: pointer;
+  transition: .7s ease-in-out;
 }
 
 .switch__slider:before {
@@ -48,6 +45,20 @@
 .switch__input:checked + .switch__slider:before {
   transform: translateX(16px);
 }
+
+.switch__input + .switch__slider:hover {
+  cursor: pointer;
+  opacity: .7;
+}
+
+.switch__input:disabled + .switch__slider:hover {
+  cursor: default;
+  opacity: 1;
+}
+
+
+
+
 
 
 

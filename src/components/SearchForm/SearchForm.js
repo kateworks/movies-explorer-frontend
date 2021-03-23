@@ -4,7 +4,6 @@ import RoundSwitch from '../RoundSwitch/RoundSwitch';
 import './SearchForm.css';
 
 function SearchForm(props) {
-  const [isSwitchOn, setIsSwitchOn] = useState(true);
   const [searchString, setSearchString] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
 
@@ -12,8 +11,8 @@ function SearchForm(props) {
     setErrorMessage('');
   }, [searchString]);
 
-  const handleSwitchChange = (event) => {
-    setIsSwitchOn(event.target.checked);
+  const handleSwitchChange = () => {
+    props.onSwitchChange();
   };
 
   const handleStringChange = (event) => {
@@ -26,7 +25,7 @@ function SearchForm(props) {
       setErrorMessage('Нужно ввести ключевое слово (название, режиссер, страна или год)');
       return;
     }
-    props.onSubmit(searchString, isSwitchOn);
+    props.onSubmit(searchString);
   };
 
   return (
@@ -51,7 +50,11 @@ function SearchForm(props) {
         <fieldset className="search__switch-box search__box">
           <div className="search__line search__box" />
 
-          <RoundSwitch isChecked={isSwitchOn} onChange={handleSwitchChange}/>
+          <RoundSwitch
+            isChecked={props.isSwitchOn || false}
+            onChange={handleSwitchChange}
+            isDisabled={props.isSwitchDisabled}
+          />
 
           <p className="search__switch-name search__box">
             Короткометражки
