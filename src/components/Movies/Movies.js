@@ -29,25 +29,26 @@ function Movies() {
   const [visibleCardsNumber, setVisibleCardsNumber] = useState(0);
 
   useEffect(() => {
-    // При монтировании читаем данные из хранилища
+    let found, foundChecked;
     const fromStorage = localStorage.getItem('foundMovies');
     if (fromStorage) {
-      const found = JSON.parse(fromStorage);
+      found = JSON.parse(fromStorage);
       setFoundMovies(found);
       setIsSwitchDisabled(found.length === 0);
     }
 
-    // ... а также сохраненные фильмы
     mainApi.getMovies()
     .then((data) => {
       setSavedMovies(data);
+      foundChecked = addSavedFlag(found, data.slice());
+      setFoundMovies(foundChecked);
     })
     .catch((err) => {
       console.log(`Нет доступа к сохраненным фильмам: ${err}`);
     });
+
   }, []);
 
-  // При изменении ширины меняем параметры отображения
   useEffect(() => {
     setVisualProps(getVisualProps(width));
   }, [width]);
@@ -86,7 +87,6 @@ function Movies() {
   // Поиск фильмов
 
   const searchMain = async (searchString) => {
-    // Начальные значения
     setFoundMovies([]);
     setShowedMovies([]);
     setFindErrorMessage('');

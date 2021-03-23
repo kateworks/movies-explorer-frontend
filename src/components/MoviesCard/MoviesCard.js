@@ -1,13 +1,14 @@
 import React from 'react';
-import { getVisualProps } from '../../utils/VisualProps';
 import './MoviesCard.css';
 
 function MoviesCard({ movie, children, onClick }) {
 
   const getMovieDuration = (duration) => {
-    const hours = Math.floor(duration / 60)
+    const hours = Math.floor(duration / 60);
+    const hoursStr = hours > 0 ? `${hours}ч` : '';
     const minutes = duration - hours * 60;
-    return `${hours}ч${minutes}м`;
+    const minutesStr = minutes > 0 ? `${minutes}м` : '';
+    return hoursStr + minutesStr;
   };
 
   const handleClick = () => {
@@ -27,7 +28,9 @@ function MoviesCard({ movie, children, onClick }) {
 
       <ul className="card__info">
         <li className="card__name">{movie.nameRU}</li>
-        <li>{children}</li>
+        <li>
+          {children}
+        </li>
         <li className="card__duration">{getMovieDuration(movie.duration)}</li>
       </ul>
     </li>

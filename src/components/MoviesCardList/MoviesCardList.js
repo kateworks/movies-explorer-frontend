@@ -2,8 +2,20 @@ import React from 'react';
 import Preloader from '../Preloader/Preloader';
 import MoviesCard from '../MoviesCard/MoviesCard';
 import RoundCheckBox from '../RoundCheckBox/RoundCheckBox';
+import Button from '../Button/Button';
 
 import './MoviesCardList.css';
+
+function DeleteButton(props) {
+
+  const handleDelete = () => {
+    props.onDelete(props.movie);
+  };
+
+  return (
+    <Button userClass="saved-movies__btn_delete" onClick={handleDelete}/>
+  );
+}
 
 function MoviesCardList(props) {
 
@@ -11,12 +23,22 @@ function MoviesCardList(props) {
     props.onSave(movieId);
   };
 
+  const handleDelete = (movie) => {
+    props.onDelete(movie);
+  };
+
   const getMoviesList = (moviesList) => {
     if (moviesList.length > 0) {
       return moviesList.map((moviesCard) => (
-        <MoviesCard key={moviesCard.movieId} movie={moviesCard} onClick={props.onClick}>
+        <MoviesCard
+          key={moviesCard.movieId} movie={moviesCard}
+          onClick={props.onClick}
+        >
           { props.savedFilms ?
-            '111' :
+            <DeleteButton
+              onDelete={handleDelete}
+              movie={moviesCard}
+            /> :
             <RoundCheckBox
               isChecked={moviesCard.saved}
               movieId={moviesCard.movieId}
