@@ -46,7 +46,6 @@ function Movies() {
     .catch((err) => {
       console.log(`Нет доступа к сохраненным фильмам: ${err}`);
     });
-
   }, []);
 
   useEffect(() => {
@@ -218,6 +217,7 @@ function Movies() {
   return (
     <section className="movies">
       <SearchForm
+        savedFilms={false}
         onSubmit={handleSearchSubmit}
         onSwitchChange={handleSwitchChange}
         isSwitchOn={isSwitchOn}
@@ -225,11 +225,11 @@ function Movies() {
       />
 
       <MoviesCardList
-        moviesList={showedMovies}
+        savedFilms={false}
         isLoading={isLoading}
+        moviesList={showedMovies}
         errorMessage={findErrorMessage}
         onSave={handleSaveClick}
-        savedFilms={false}
         onClick={handleCardClick}
       />
 

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Button from '../Button/Button';
 import RoundSwitch from '../RoundSwitch/RoundSwitch';
+import { KEY_WORD_ERROR } from '../../utils/Const';
 import './SearchForm.css';
 
 function SearchForm(props) {
@@ -21,8 +22,8 @@ function SearchForm(props) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (!searchString) {
-      setErrorMessage('Нужно ввести ключевое слово (название, режиссер, страна или год)');
+    if (!searchString && !props.savedFilms) {
+      setErrorMessage(KEY_WORD_ERROR);
       return;
     }
     props.onSubmit(searchString);
