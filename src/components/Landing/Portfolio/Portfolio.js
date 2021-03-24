@@ -11,21 +11,39 @@ const Portfolio = () => (
         <p className="portfolio__box projects__info">
           Статичный сайт
         </p>
-        <a className="projects__link" href="https://example.com">↗</a>
+        <a
+          className="projects__link"
+          href="https://github.com/kateworks/how-to-learn"
+          target="_blank" rel="noreferrer noopener"
+        >
+          ↗
+        </a>
       </li>
 
       <li className="portfolio__box projects__item">
         <p className="portfolio__box projects__info">
           Адаптивный сайт
         </p>
-        <a className="projects__link" href="https://example.com">↗</a>
+        <a
+          className="projects__link"
+          href="https://github.com/kateworks/russian-travel"
+          target="_blank" rel="noreferrer noopener"
+        >
+          ↗
+        </a>
       </li>
 
       <li className="portfolio__box projects__item">
         <p className="portfolio__box projects__info">
           Одностраничное приложение
         </p>
-        <a className="projects__link" href="https://example.com">↗</a>
+        <a
+          className="projects__link"
+          href="https://github.com/kateworks/mesto"
+          target="_blank" rel="noreferrer noopener"
+        >
+          ↗
+        </a>
       </li>
     </ul>
   </section>

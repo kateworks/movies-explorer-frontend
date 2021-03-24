@@ -3,7 +3,7 @@ import SectionHeader from '../SectionHeader/SectionHeader';
 import SectionTitle from '../SectionTitle/SectionTitle';
 import Portfolio from '../Portfolio/Portfolio';
 
-import personPhoto from '../../../images/person-photo.jpg';
+import personPhoto from '../../../images/my-photo.jpg';
 import './AboutMe.css';
 
 const AboutMe = () => (
@@ -13,18 +13,18 @@ const AboutMe = () => (
 
     <article className="person gradual-change">
       <div className="person__info">
-        <SectionTitle>Виталий</SectionTitle>
+        <SectionTitle>Екатерина</SectionTitle>
 
         <p className="person__subtitle">
-          Фронтенд-разработчик, 30 лет
+          Фронтенд-разработчик
         </p>
 
         <p className="person__text">
-          Я родился и живу в Саратове, закончил факультет экономики СГУ.
-          У меня есть жена и дочь. Я люблю слушать музыку, а ещё увлекаюсь бегом.
-          Недавно начал кодить. С 2015 года работал в компании «СКБ Контур».
-          После того, как прошёл курс по веб-разработке,
-          начал заниматься фриланс-заказами и ушёл с постоянной работы.
+          Я родилась и выросла в Барнауле, закончила АлтГТУ им.И.И.Ползунова
+          по специальности "Программное обеспечение вычислительной техники".
+          В настоящее время живу в Ленинградской области (д.Пеники). Прошла курс
+          Яндекс.Практикума по веб-разработке. Ищу работу front-end разработчика,
+          чтобы применить полученные знания, решая нестандартные и серьезные задачи.
         </p>
 
         <ul className="person__list">
@@ -38,7 +38,7 @@ const AboutMe = () => (
           </li>
           <li className="person__item">
             <a className="person__link"
-              href="https://github.com"
+              href="https://github.com/kateworks"
               target="_blank" rel="noreferrer noopener"
             >
               Github
