@@ -16,6 +16,8 @@
     "web-vitals": "^1.1.0"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "scp -r ./build/* kateworks@84.201.161.87:/home/kateworks/movies-explorer-frontend",
     "start": "react-scripts start",
     "build": "react-scripts build"
   },
