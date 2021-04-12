@@ -9,7 +9,7 @@
 
 ## Страница проекта
 
-https://kt3.students.nomoredomains.work
+https://kateworks.github.io/movies-explorer-frontend
 
 
 ## Технологии

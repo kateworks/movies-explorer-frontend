@@ -1,7 +1,7 @@
 {
   "name": "movies-explorer-frontend",
   "version": "0.1.0",
-  "homepage": ".",
+  "homepage": "https://kateworks.github.io/movies-explorer-frontend",
   "description": "Дипломный проект, клиентская часть",
   "author": "Ekaterina Pozhidaeva",
   "private": true,
@@ -9,6 +9,7 @@
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.5",
     "@testing-library/user-event": "^12.7.2",
+    "gh-pages": "^3.1.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-router-dom": "^5.2.0",
@@ -17,7 +18,7 @@
   },
   "scripts": {
     "predeploy": "npm run build",
-    "deploy": "scp -r ./build/* kateworks@84.201.161.87:/home/kateworks/movies-explorer-frontend",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build"
   },
