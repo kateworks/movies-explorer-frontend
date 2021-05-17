@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/movies-explorer-frontend/static/css/main.789f95ea.chunk.css",
-    "main.js": "/movies-explorer-frontend/static/js/main.ffbf2b31.chunk.js",
-    "main.js.map": "/movies-explorer-frontend/static/js/main.ffbf2b31.chunk.js.map",
-    "runtime-main.js": "/movies-explorer-frontend/static/js/runtime-main.1d600196.js",
-    "runtime-main.js.map": "/movies-explorer-frontend/static/js/runtime-main.1d600196.js.map",
-    "static/js/2.5ac28e78.chunk.js": "/movies-explorer-frontend/static/js/2.5ac28e78.chunk.js",
-    "static/js/2.5ac28e78.chunk.js.map": "/movies-explorer-frontend/static/js/2.5ac28e78.chunk.js.map",
+    "main.css": "/movies-explorer-frontend/static/css/main.c21047fa.chunk.css",
+    "main.js": "/movies-explorer-frontend/static/js/main.9de6f846.chunk.js",
+    "main.js.map": "/movies-explorer-frontend/static/js/main.9de6f846.chunk.js.map",
+    "runtime-main.js": "/movies-explorer-frontend/static/js/runtime-main.3cbaed50.js",
+    "runtime-main.js.map": "/movies-explorer-frontend/static/js/runtime-main.3cbaed50.js.map",
+    "static/js/2.fef79bd8.chunk.js": "/movies-explorer-frontend/static/js/2.fef79bd8.chunk.js",
+    "static/js/2.fef79bd8.chunk.js.map": "/movies-explorer-frontend/static/js/2.fef79bd8.chunk.js.map",
     "index.html": "/movies-explorer-frontend/index.html",
-    "static/css/main.789f95ea.chunk.css.map": "/movies-explorer-frontend/static/css/main.789f95ea.chunk.css.map",
-    "static/js/2.5ac28e78.chunk.js.LICENSE.txt": "/movies-explorer-frontend/static/js/2.5ac28e78.chunk.js.LICENSE.txt",
+    "static/css/main.c21047fa.chunk.css.map": "/movies-explorer-frontend/static/css/main.c21047fa.chunk.css.map",
+    "static/js/2.fef79bd8.chunk.js.LICENSE.txt": "/movies-explorer-frontend/static/js/2.fef79bd8.chunk.js.LICENSE.txt",
     "static/media/index.css": "/movies-explorer-frontend/static/media/Inter-Regular.2e76ba93.woff2",
     "static/media/SavedMovies.css": "/movies-explorer-frontend/static/media/delete-btn-icon.ba864669.svg",
     "static/media/PopupMenu.css": "/movies-explorer-frontend/static/media/delete-icon.09da0492.svg",
@@ -20,9 +20,9 @@
     "static/media/SearchForm.css": "/movies-explorer-frontend/static/media/search-icon.99b6633d.svg"
   },
   "entrypoints": [
-    "static/js/runtime-main.1d600196.js",
-    "static/js/2.5ac28e78.chunk.js",
-    "static/css/main.789f95ea.chunk.css",
-    "static/js/main.ffbf2b31.chunk.js"
+    "static/js/runtime-main.3cbaed50.js",
+    "static/js/2.fef79bd8.chunk.js",
+    "static/css/main.c21047fa.chunk.css",
+    "static/js/main.9de6f846.chunk.js"
   ]
 }
