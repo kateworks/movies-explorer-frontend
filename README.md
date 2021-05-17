@@ -25,6 +25,8 @@ https://kateworks.github.io/movies-explorer-frontend
 
 2. Установить зависимости
 
+    `cd movies-explorer-frontend`
+
     `npm install`
 
 3. Для запуска использовать команды
